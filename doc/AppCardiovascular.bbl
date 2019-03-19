@@ -1,0 +1,85 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{berjonRC}{article}{}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sistema Sanitario de Navarra}
+      \field{title}{Riesgo Cardiovascular. Evidencias que orientan la actuación clínica.}
+      \field{year}{2013}
+      \true{nocite}
+      \warn{\item Name "Manuel Jesus Serrano, Jesús Berjón Reyero, Aurora Salaberri, Carlos Amézqueta Goñi" has too many commas: skipping name}
+    \endentry
+    \entry{tagle2007estimacion}{article}{}
+      \name{author}{5}{}{%
+        {{hash=0ba2df5975ef428647344d2e62b45264}{%
+           family={Tagle-Luzárraga},
+           familyi={T\bibinithyphendelim L\bibinitperiod},
+           given={Marino},
+           giveni={M\bibinitperiod}}}%
+        {{hash=bb766790221c107c7bf967e4e290b898}{%
+           family={Gómez-Vargas},
+           familyi={G\bibinithyphendelim V\bibinitperiod},
+           given={Fausto},
+           giveni={F\bibinitperiod}}}%
+        {{hash=e21c5785f39cad7ae4f5846b3383e21a}{%
+           family={Guerrero-Rodríguez},
+           familyi={G\bibinithyphendelim R\bibinitperiod},
+           given={Lynn},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a590ea2091b76291cc650163df1c382e}{%
+           family={Tagle-Morla},
+           familyi={T\bibinithyphendelim M\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8b0dd1b9635cbfe289018af861adac49}{%
+           family={Franco-Bajaña},
+           familyi={F\bibinithyphendelim B\bibinitperiod},
+           given={María\bibnamedelima Fernanda},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{08d169ba6bcae530e824d9a9de029be4}
+      \strng{fullhash}{d6e9736a47160f16767ff60e1c02645e}
+      \strng{bibnamehash}{08d169ba6bcae530e824d9a9de029be4}
+      \strng{authorbibnamehash}{08d169ba6bcae530e824d9a9de029be4}
+      \strng{authornamehash}{08d169ba6bcae530e824d9a9de029be4}
+      \strng{authorfullhash}{d6e9736a47160f16767ff60e1c02645e}
+      \field{sortinit}{T}
+      \field{sortinithash}{6f7aff9db9dcfeb7f95fd5bbd2f78df9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Endocrinología y Nutrición}
+      \field{number}{4}
+      \field{title}{Estimación del riesgo cardiovascular según el algoritmo de Framingham en sujetos con síndrome metabólico, definido por los criterios del NCEP-ATP-III}
+      \field{volume}{54}
+      \field{year}{2007}
+      \true{nocite}
+      \field{pages}{211\bibrangedash 215}
+      \range{pages}{5}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
