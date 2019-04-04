@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Calculadora RCV</string>
+    <string name="txtEmail">Correo Electrónico</string>
+    <string name="txtPassword">Contraseña</string>
+    <string name="txtEntrar">Entrar</string>
+    <string name="txtRegistrar">Crear Cuenta</string>
+    <string name="title_activity_main">Calculadora RCV</string>
+    <string name="navigationEstado">Estado</string>
+    <string name="navigationCalcular">Calcular RCV</string>
+    <string name="navigationPerfil">Perfil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtNombre">Nombre</string>
+    <string name="txtValor">Valor</string>
+    <string name="acercaDe">Acerca de...</string>
+    <string name="txtScore">Score:</string>
+</resources>
