@@ -15,4 +15,11 @@
     <string name="txtValor">Valor</string>
     <string name="acercaDe">Acerca de...</string>
     <string name="txtScore">Score:</string>
+    <string name="config">Configuración</string>
+    <string name="cerrarSesion">Cerrar Sesión</string>
+    <string name="lblFechaNacimiento">Fecha de Nacimiento</string>
+    <string name="txtUltimoAcceso">Último Acceso</string>
+    <string name="txtHistorial">Historial de Cálculos</string>
+    <string name="imagen_de_perfil">Imagen de perfil</string>
+    <string name="btnEditar">Editar perfil</string>
 </resources>

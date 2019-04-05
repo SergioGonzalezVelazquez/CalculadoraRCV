@@ -4,7 +4,15 @@
 
     <item
         android:id="@+id/acercaDe"
-        android:icon="@drawable/ic_question_mark"
+        android:icon="@drawable/ic_question_mark_white"
         android:title="@string/acercaDe"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/config"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/config" />
+    <item
+        android:id="@+id/cerrarSesion"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/cerrarSesion" />
 </menu>

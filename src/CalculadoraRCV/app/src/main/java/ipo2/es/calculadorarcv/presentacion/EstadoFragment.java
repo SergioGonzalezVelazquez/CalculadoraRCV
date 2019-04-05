@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.List;
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.CalculoRCV;
 import ipo2.es.calculadorarcv.dominio.FactorRiesgo;
-import ipo2.es.calculadorarcv.dominio.Usuario;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;

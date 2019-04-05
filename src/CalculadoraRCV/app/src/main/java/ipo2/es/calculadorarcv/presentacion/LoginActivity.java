@@ -43,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("Debug_LOGIN","Nuevo Intent i");
 
         //this.usuario = new Usuario ("sergio@gmail.com","1234");
-        this.usuario = new Usuario("sergio@gmail.com","1234", "Sergio",
-                "González Velázquez", 'h', "20/09/1998",
-                "", "");
+        this.usuario = new Usuario("sergiov@gmail.com","1234", "Sergio",
+                "González", 'h', "20/09/1998",
+                "05/04/2019 - 20:53:34", "");
 
 
         CalculoRCV calculoPrueba = new CalculoRCV(this.usuario, true, true,
