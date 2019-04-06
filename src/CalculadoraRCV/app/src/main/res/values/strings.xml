@@ -22,4 +22,6 @@
     <string name="txtHistorial">Historial de Cálculos</string>
     <string name="imagen_de_perfil">Imagen de perfil</string>
     <string name="btnEditar">Editar perfil</string>
+    <string name="txtFase">Datos del Paciente</string>
+    <string name="TAS">Tensión Arterial Sistólicq</string>
 </resources>
