@@ -12,7 +12,11 @@
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLigth"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/headings"
         android:paddingBottom="10dp">
 
 
@@ -33,27 +37,28 @@
                 android:contentDescription="@string/imagen_de_perfil"
                 android:padding="3dp"
                 android:src="@drawable/user_sergio"
-                app:civ_border_color="@color/colorPrimaryLigth"
+                app:civ_border_color="@color/headings"
                 app:civ_border_width="3dp" />
 
             <TextView
                 android:id="@+id/lbl_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_below="@id/profile_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-light"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="32sp" />
 
             <ImageButton
                 android:id="@+id/btnEditar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="13dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/btnEditar"
                 android:scaleType="fitXY"

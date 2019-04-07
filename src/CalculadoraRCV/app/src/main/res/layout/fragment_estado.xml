@@ -96,14 +96,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/LinearEdadVasc"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/separadorHorizontal"
         android:layout_width="match_parent"

@@ -13,7 +13,7 @@
         android:fillViewport="true"
         android:scrollbars="none"
         tools:ignore="UselessParent">
-
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -107,7 +107,7 @@
                                     android:layout_marginStart="10dp"
                                     android:background="@drawable/border"
                                     android:autofillHints="kg" />
-
+                                
                             </LinearLayout>
 
                             <View
@@ -231,7 +231,7 @@
                                 <Switch
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="80dp" />
+                                    android:layout_marginLeft="80dp" />
 
                             </LinearLayout>
 
@@ -405,7 +405,7 @@
                                 <Switch
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="80dp" />
+                                    android:layout_marginLeft="80dp" />
 
 
                             </LinearLayout>
@@ -441,7 +441,7 @@
                                 <Switch
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="80dp" />
+                                    android:layout_marginLeft="80dp" />
 
 
                             </LinearLayout>
@@ -458,105 +458,30 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rellayCalcular"
+                android:id="@+id/rellay"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_below="@+id/rellayFormPersonales"
                 android:background="@color/headings">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardViewCalcular"
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="31dp"
-                    app:cardBackgroundColor="@color/colorPrimary"
-                    app:cardCornerRadius="25dp"
-                    app:cardElevation="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <Button
-                            android:id="@+id/btnCalcular"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@android:color/transparent"
-                            android:text="@string/txtCalcular"
-                            android:textColor="@android:color/background_light"
-                            android:textSize="24sp" />
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/txtEnfemerdade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/antecedentesPersonales"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="1dp"
                     android:layout_alignParentEnd="true"
                     android:background="@color/colorAccent" />
             </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/rellayPrueba"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rellayCalcular">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/txtDiabetes2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/Diabetes"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <Switch
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="80dp" />
-
-
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="15dp"
-                            android:background="@color/colorAccent" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </RelativeLayout>
-
-
-
+            
         </RelativeLayout>
-
     </ScrollView>
 
 </RelativeLayout>

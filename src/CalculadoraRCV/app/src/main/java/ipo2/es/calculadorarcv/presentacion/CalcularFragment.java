@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.CalculoRCV;
@@ -16,6 +20,16 @@ public class CalcularFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    private Spinner spinnerTAS;
+    private String[] valoresTAS;
+    private Spinner spinnerTAD;
+    private String[] valoresTAD;
+    private Spinner spinnerFisica;
+    private String[] valoresFisica;
+    private Spinner spinnerLDL;
+    private String[] valoresLDL;
+    private Spinner spinnerHDL;
+    private String[] valoresHDL;
 
     public CalcularFragment() {
         // Required empty public constructor
@@ -49,8 +63,57 @@ public class CalcularFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calcular, container, false);
+        View view = inflater.inflate(R.layout.fragment_calcular, container, false);
+
+        spinnerTAS = view.findViewById(R.id.spinner_TAS);
+        valoresTAS = getValores(90,190, "mmHg");
+        ArrayAdapter<String> adapterTAS = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_spinner_item, valoresTAS);
+        spinnerTAS.setAdapter(adapterTAS);
+
+
+        spinnerTAD = view.findViewById(R.id.spinner_TAD);
+        valoresTAD = getValores(46,105, "mmHg");
+        ArrayAdapter<String> adapterTAD = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_spinner_item, valoresTAD);
+        spinnerTAD.setAdapter(adapterTAD);
+
+        spinnerFisica = view.findViewById(R.id.spinner_Fisica);
+        valoresFisica = new String[]{"Seleccione un valor", "No, no práctico ningún deporte",
+                "Sí, mínimo una vez al mes", "Sí, minimo una vez por semana",
+                "Sí, mínimo dos veces por semana"};
+        ArrayAdapter<String> adapterFisica = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_spinner_item, valoresFisica);
+        spinnerFisica.setAdapter(adapterFisica);
+
+        spinnerLDL = view.findViewById(R.id.spinner_LDL);
+        valoresLDL = getValores(20,200, "mg/dl");
+        ArrayAdapter<String> adapterLDL = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_spinner_item, valoresLDL);
+        spinnerLDL.setAdapter(adapterLDL);
+
+        spinnerHDL = view.findViewById(R.id.spinner_HDL);
+        valoresHDL = getValores(25,200, "mg/dl");
+        ArrayAdapter<String> adapterHDL = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_spinner_item, valoresHDL);
+        spinnerHDL.setAdapter(adapterHDL);
+
+
+        return view;
     }
+
+    private String [] getValores(int min, int max, String unidad){
+        ArrayList<String> valores = new ArrayList<String>();
+        valores.add("Seleccione un valor");
+
+        for(int i = min;i<=max;i++){
+            valores.add(i + " "+ unidad);
+        }
+
+        return valores.toArray(new String[valores.size()]);
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

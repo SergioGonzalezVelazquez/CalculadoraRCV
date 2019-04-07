@@ -23,5 +23,19 @@
     <string name="imagen_de_perfil">Imagen de perfil</string>
     <string name="btnEditar">Editar perfil</string>
     <string name="txtFase">Datos del Paciente</string>
-    <string name="TAS">Tensión Arterial Sistólicq</string>
+    <string name="TAS">Tensión Arterial Sistólica</string>
+    <string name="TAD">Tensión Arterial Diastólica</string>
+    <string name="btnCalcular">Calcular</string>
+    <string name="Tabaquismo">Tabaquismo</string>
+    <string name="btnSiguiente">Siguiente</string>
+    <string name="antecedentesPersonales">Antecedentes Personales</string>
+    <string name="txtAltura">Altura (cm)</string>
+    <string name="txtPeso">Peso (kg)</string>
+    <string name="Fisica">Actividad Física</string>
+    <string name="HDL">Colesterol HDL</string>
+    <string name="LDL">Colesterol LDL</string>
+    <string name="Diabetes">Diabetes</string>
+    <string name="Hipertensión">Hipertensión</string>
+    <string name="Hipertrofia">Hipertrofia</string>
+    <string name="txtCalcular">Calcular</string>
 </resources>
