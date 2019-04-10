@@ -1,5 +1,7 @@
 package ipo2.es.calculadorarcv.dominio;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,12 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
+
+import ipo2.es.calculadorarcv.persistencia.ConectorBD;
+import ipo2.es.calculadorarcv.presentacion.LoginActivity;
+import ipo2.es.calculadorarcv.presentacion.Observador;
+
 
 public class Usuario implements Serializable {
     private String pass;
-
-
     private String nombre;
     private String apellidos;
     private String fechaNacimiento;
@@ -20,6 +26,26 @@ public class Usuario implements Serializable {
     private String email;
     private String ultimoAcceso;
     private String foto;
+    private ArrayList<Observador> observadores = new ArrayList<Observador>();
+
+    public void registrarObservador (Observador o)
+    {
+        observadores.add(o);
+        o.update();
+    }
+    public void eliminarObservador (Observador o)
+    {
+        observadores.remove(o);
+    }
+    public void actualizarObservadores ()
+    {
+        Iterator<Observador> i = observadores.iterator();
+        while(i.hasNext())
+        {
+            Observador o = (Observador) i.next();
+            o.update();
+        }
+    }
 
 
     //Historial Cálculos RCV
@@ -46,7 +72,6 @@ public class Usuario implements Serializable {
         this.pass = pass;
         this.email = email;
 
-        this.calculosRCV  = new ArrayList<CalculoRCV>();
 
     }
 
@@ -109,6 +134,8 @@ public class Usuario implements Serializable {
 
     public void nuevoCalculo(CalculoRCV calculo) {
         this.calculosRCV.add(calculo);
+        Log.d("Debug_OBSERVADOR","Usuario enviada notificación");
+        this.actualizarObservadores ();
     }
 
     public CalculoRCV getUltimoRCV(){

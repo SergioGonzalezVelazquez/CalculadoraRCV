@@ -1,5 +1,7 @@
 package ipo2.es.calculadorarcv.dominio;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
     private boolean hvi, fumador, diabetes, hipertension;
     private double altura, peso;
     private int actividadFisica;
-    private int tensionDiastolica, tensionSiastolica, colHDL, colLDL;
+    private int tensionDiastolica, tensionSiastolica, colHDL, colTotal;
 
     private static final SimpleDateFormat dateFormat =
             new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -32,7 +34,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
     //CONSTRUCTOR PARA NUEVO CALCULO
     public CalculoRCV(Usuario usuario, boolean fumador, boolean diabetes, boolean hvi,
                       boolean hipertension, double peso, double altura, int actividadFisica,
-                      int tensionDiastolica, int tensionSiastolica, int colHDL, int colLDL)  {
+                      int tensionDiastolica, int tensionSiastolica, int colHDL, int colTotal)  {
         this.id = 0;
         this.fecha = "";
         this.genero = usuario.getGenero();
@@ -46,7 +48,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         this.tensionSiastolica = tensionSiastolica;
         this.hipertension = hipertension;
         this.colHDL = colHDL;
-        this.colLDL = colLDL;
+        this.colTotal = colTotal;
 
         this.fecha = this.dateFormat.format(new Date());;
 
@@ -54,7 +56,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         this.establecerFactores();
 
         this.score = this.calcularScore(this.genero, this.edad, this. fumador, this. diabetes, this.colHDL,
-                this.colLDL, this.hvi, this.tensionSiastolica);
+                this.colTotal, this.hvi, this.tensionSiastolica);
     }
 
     //CONSTRUCTOR PARA LEER BBDD
@@ -72,7 +74,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
 
     private void establecerFactores(){
         this.factores.setActividadFisica(this.actividadFisica);
-        this.factores.setColesterol(this.colLDL);
+        this.factores.setColTotal(this.colTotal);
         this.factores.setTabaco(this.fumador);
         this.factores.setTensionArterial(this.tensionSiastolica, this.tensionDiastolica);
         this.factores.setPeso(this.peso , this.altura);
@@ -139,6 +141,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         return actividadFisica;
     }
 
+
     public void setActividadFisica(int actividadFisica) {
         this.actividadFisica = actividadFisica;
     }
@@ -165,5 +168,25 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "CalculoRCV{" +
+                "score=" + score +
+                ", fecha='" + fecha + '\'' +
+                ", valoracion='" + valoracion + '\'' +
+                ", edad=" + edad +
+                ", genero=" + genero +
+                ", hvi=" + hvi +
+                ", fumador=" + fumador +
+                ", diabetes=" + diabetes +
+                ", hipertension=" + hipertension +
+                ", altura=" + altura +
+                ", peso=" + peso +
+                ", actividadFisica=" + actividadFisica +
+                ", tensionDiastolica=" + tensionDiastolica +
+                ", tensionSiastolica=" + tensionSiastolica +
+                ", colHDL=" + colHDL +
+                ", colTotal=" + colTotal +
+                '}';
+    }
 }

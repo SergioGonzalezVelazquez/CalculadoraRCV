@@ -19,20 +19,23 @@ import ipo2.es.calculadorarcv.dominio.CalculoRCV;
 
 
 public class MainActivity extends AppCompatActivity implements EstadoFragment.OnFragmentInteractionListener,
-        CalcularFragment.OnFragmentInteractionListener, PerfilFragment.OnFragmentInteractionListener {
+        CalcularFragment.OnFragmentInteractionListener,
+        PerfilFragment.OnFragmentInteractionListener, Observador{
 
     private Usuario usuario;
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Bundle bundle=getIntent().getExtras();
         this.usuario = (Usuario) bundle.getSerializable("usuario");
+        this.usuario.registrarObservador(this);
         Log.d("Debug_NAVIGATION",usuario.getEmail() + " ha iniciado sesión");
         Fragment fragment = new EstadoFragment();
         bundle.putSerializable("calculo",usuario.getUltimoRCV());
@@ -96,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
                     Log.d("Debug_NAVIGATION",usuario.getEmail() + " Pulsó la ventana calcular");
                     //fragment = new CalcularFragment();
                     fragment = new CalcularFragment();
+                    bundle =  new Bundle();
+                    bundle.putSerializable("usuario",usuario);
+                    fragment.setArguments(bundle);
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_perfil:
@@ -124,5 +130,18 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void update() {
+        Log.d("Debug_OBSERVADOR","Main Activity recibida notificación");
+        navigation.getMenu().getItem(0).setChecked(true);
+        Fragment fragment;
+        Bundle bundle;
+        fragment = new EstadoFragment();
+        bundle =  new Bundle();
+        bundle.putSerializable("calculo",usuario.getUltimoRCV());
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
     }
 }

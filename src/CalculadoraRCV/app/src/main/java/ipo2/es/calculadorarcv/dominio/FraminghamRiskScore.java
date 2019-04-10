@@ -1,5 +1,7 @@
 package ipo2.es.calculadorarcv.dominio;
 
+import android.util.Log;
+
 /**
  * This is the server logic for the Framingham Risk Score Calculator.
  * It calculates the Framingham Risk Score, a sex-specific algorithm used
@@ -14,7 +16,7 @@ package ipo2.es.calculadorarcv.dominio;
 public final class FraminghamRiskScore {
 
     private static int scoreMen(int edad, boolean fumador, boolean diabetes,
-                                int colHDL, int colLDL, boolean hvi, int pas){
+                                int colHDL, int colTotal, boolean hvi, int pas){
         int points = 0;
 
         /*---------------------------------------
@@ -43,6 +45,7 @@ public final class FraminghamRiskScore {
         else if(edad >= 71 && edad <= 73 ) points = points + 18;
         else if(edad >= 74) points = points +19;
 
+
         /*---------------------------------------
         /       PRESIÓN ARTERIAL SISTÓLICA
         /--------------------------------------*/
@@ -51,7 +54,7 @@ public final class FraminghamRiskScore {
         /*---------------------------------------
         /       COLESTEROL  LDL (malo)(mg/dl)
         /--------------------------------------*/
-        points += get_colLDL_score(colLDL);
+        points += get_colLDL_score(colTotal);
 
         /*---------------------------------------
         /       COLESTEROL HDL (bueno)(mg/dl)
@@ -72,7 +75,7 @@ public final class FraminghamRiskScore {
     }
 
     private static  int scoreWomen(int edad, boolean fumador, boolean diabetes,
-                                   int colHDL, int colLDL, boolean hvi, int pas){
+                                   int colHDL, int colTotal, boolean hvi, int pas){
 
         int points = 0;
         
@@ -114,7 +117,7 @@ public final class FraminghamRiskScore {
         /*---------------------------------------
         /       COLESTEROL LDL (malo)(mg/dl)
         /--------------------------------------*/
-        points += get_colLDL_score(colLDL);
+        points += get_colLDL_score(colTotal);
 
         /*---------------------------------------
         /       COLESTEROL HDL (bueno)(mg/dl)
@@ -148,6 +151,7 @@ public final class FraminghamRiskScore {
         else if(pas<=172) score+=5;
         else score += 6;
 
+
         return score;
     }
 
@@ -164,6 +168,7 @@ public final class FraminghamRiskScore {
         else if(col<=315) score+=5;
         else score += 6;
 
+
         return score;
     }
 
@@ -179,6 +184,7 @@ public final class FraminghamRiskScore {
         else if(col<=288) score+=4;
         else if(col<=315) score+=5;
         else score += 6;
+
 
         return score;
     }
@@ -225,13 +231,13 @@ public final class FraminghamRiskScore {
     }
 
     public static int getRiskScore(char genero, int edad, boolean fumador, boolean diabetes,
-                                   int colHDL, int colLDL, boolean hvi, int pas){
+                                   int colHDL, int colTotal, boolean hvi, int pas){
         int score= 0;
         if(genero == 'm'){ //mujer
-            score = scoreMen(edad, fumador, diabetes, colHDL,colLDL, hvi, pas);
+            score = scoreMen(edad, fumador, diabetes, colHDL,colTotal, hvi, pas);
 
         }else{ //hombre
-            score = scoreWomen(edad, fumador, diabetes, colHDL,colLDL, hvi, pas);
+            score = scoreWomen(edad, fumador, diabetes, colHDL,colTotal, hvi, pas);
         }
         return scoreToRisk(score);
     }

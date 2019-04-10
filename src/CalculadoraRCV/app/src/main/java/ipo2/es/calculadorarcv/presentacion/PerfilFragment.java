@@ -57,7 +57,8 @@ public class PerfilFragment extends Fragment {
         this.lbl_user_name.setText(this.usuario.getNombre() + " " + this.usuario.getApellidos());
         this.lblCorreo.setText(this.usuario.getEmail());
         this.lblUltimoAcceso.setText(this.usuario.getUltimoAcceso());
-        this.lblFechaNacimiento.setText(this.usuario.getFechaNacimiento());
+        this.lblFechaNacimiento.setText(this.usuario.getFechaNacimiento() + "\t("
+                + this.usuario.getEdad() +  " años)");
 
 
         return view;

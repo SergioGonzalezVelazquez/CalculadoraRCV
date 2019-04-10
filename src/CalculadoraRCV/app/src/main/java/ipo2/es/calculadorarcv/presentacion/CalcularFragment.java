@@ -1,35 +1,61 @@
 package ipo2.es.calculadorarcv.presentacion;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.CalculoRCV;
+import ipo2.es.calculadorarcv.dominio.Usuario;
 
 
 public class CalcularFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+
+    private Usuario usuario;
+
+    //Spinners
     private Spinner spinnerTAS;
     private String[] valoresTAS;
     private Spinner spinnerTAD;
     private String[] valoresTAD;
     private Spinner spinnerFisica;
     private String[] valoresFisica;
-    private Spinner spinnerLDL;
-    private String[] valoresLDL;
+    private Spinner spinnerColesterol;
+    private String[] valoresColesterol;
     private Spinner spinnerHDL;
     private String[] valoresHDL;
+
+    //EditText
+    private EditText lblAltura;
+    private EditText lblPeso;
+
+    //Switch
+    private Switch swTabaco;
+    private Switch swDiabetes;
+    private Switch swHipertension;
+    private Switch swHipertrofia;
+
+    //BtnCalcular
+    private Button btnCalcular;
+
+
 
     public CalcularFragment() {
         // Required empty public constructor
@@ -55,7 +81,7 @@ public class CalcularFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-           // this.calculoRCV = getArguments().getBinder("calculo");
+            this.usuario = (Usuario) getArguments().getSerializable("usuario");
         }
     }
 
@@ -64,16 +90,25 @@ public class CalcularFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calcular, container, false);
+        lblAltura= view.findViewById(R.id.lblAltura);
+        lblPeso = view.findViewById(R.id.lblPeso);
+        swTabaco=view.findViewById(R.id.swTabaco);
+        swDiabetes = view.findViewById(R.id.swDiabetes);
+        swHipertension = view.findViewById(R.id.swHipertension);
+        swHipertrofia = view.findViewById(R.id.swHipertrofia);
 
+
+
+        //SPINNERS
         spinnerTAS = view.findViewById(R.id.spinner_TAS);
-        valoresTAS = getValores(90,190, "mmHg");
+        valoresTAS = setValoresSpinner(90,190, "mmHg");
         ArrayAdapter<String> adapterTAS = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresTAS);
         spinnerTAS.setAdapter(adapterTAS);
 
 
         spinnerTAD = view.findViewById(R.id.spinner_TAD);
-        valoresTAD = getValores(46,105, "mmHg");
+        valoresTAD = setValoresSpinner(46,105, "mmHg");
         ArrayAdapter<String> adapterTAD = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresTAD);
         spinnerTAD.setAdapter(adapterTAD);
@@ -86,23 +121,161 @@ public class CalcularFragment extends Fragment {
                 android.R.layout.simple_spinner_item, valoresFisica);
         spinnerFisica.setAdapter(adapterFisica);
 
-        spinnerLDL = view.findViewById(R.id.spinner_LDL);
-        valoresLDL = getValores(20,200, "mg/dl");
+        spinnerColesterol = view.findViewById(R.id.spinner_LDL);
+        valoresColesterol = setValoresSpinner(139,330, "mg/dl");
         ArrayAdapter<String> adapterLDL = new ArrayAdapter<>(this.getActivity(),
-                android.R.layout.simple_spinner_item, valoresLDL);
-        spinnerLDL.setAdapter(adapterLDL);
+                android.R.layout.simple_spinner_item, valoresColesterol);
+        spinnerColesterol.setAdapter(adapterLDL);
 
         spinnerHDL = view.findViewById(R.id.spinner_HDL);
-        valoresHDL = getValores(25,200, "mg/dl");
+        valoresHDL = setValoresSpinner(25,100, "mg/dl");
         ArrayAdapter<String> adapterHDL = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresHDL);
         spinnerHDL.setAdapter(adapterHDL);
+
+        btnCalcular = view.findViewById(R.id.btnCalcular);
+        btnCalcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CalculoRCV calculoRCV = getValores();
+                if(calculoRCV != null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Completado");
+                    builder.setMessage("Se ha calculado el Riesgo Cardiovascular en función de los" +
+                            " parámetros introducidos");
+
+                    // Set click listener for alert dialog buttons
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            usuario.nuevoCalculo(calculoRCV);
+                        }
+                    };
+                    builder.setPositiveButton("Ver resultado",dialogClickListener);
+                    builder.setIcon(android.R.drawable.ic_menu_save);
+                    builder.create();
+                    builder.show();
+
+
+
+                }
+            }
+        });
 
 
         return view;
     }
 
-    private String [] getValores(int min, int max, String unidad){
+    private CalculoRCV getValores(){
+        boolean fumador, diabetes, hvi, hipertension;
+        double peso;
+        int altura; //CAMBIAR EN CLASE CALCULO
+        int actividadFisica, tensionDiastolica, tensionSiastolica, colHDL,  colTotal;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Atención");
+        builder.setPositiveButton("OK",null);
+
+        //PESO
+        if (lblPeso.getText().toString().trim().length() > 0) {
+            peso = Double.valueOf(lblPeso.getText().toString());
+            Log.d("Debug_SCORE","Peso: " + peso);
+        } else {
+            builder.setMessage("No ha introducido el peso");
+            builder.create();
+            builder.show();
+            return null;
+        }
+
+        //ALTURA
+        if (lblAltura.getText().toString().trim().length() > 0) {
+            altura = Integer.valueOf(lblAltura.getText().toString());
+            Log.d("Debug_SCORE","Peso: " + altura);
+        } else {
+            builder.setMessage("No ha introducido la altura");
+            builder.create();
+            builder.show();
+            return null;
+        }
+
+        //ACTIVIDAD FÍSICA
+        if(spinnerFisica.getSelectedItemPosition() == 0){
+            builder.setMessage("No ha seleccionado su actividad física");
+            builder.create();
+            builder.show();
+            return null;
+        }
+        else{
+            actividadFisica = spinnerFisica.getSelectedItemPosition();
+        }
+
+        //TAS
+        if(spinnerTAS.getSelectedItemPosition() == 0){
+            builder.setMessage("No ha introducido su Tensión Arterial Siastólica (TAS)");
+            builder.create();
+            builder.show();
+            return null;
+        }
+        else{
+            String numCadena = spinnerTAS.getSelectedItem().toString().split(" ")[0];
+            tensionSiastolica = Integer.parseInt(numCadena);
+            Log.d("Debug_SCORE","TAS: " + tensionSiastolica);
+        }
+
+        //TAD
+        if(spinnerTAD.getSelectedItemPosition() == 0){
+            builder.setMessage("No ha introducido su Tensión Arterial Diastólica (TAD)");
+            builder.create();
+            builder.show();
+            return null;
+        }
+        else{
+            String numCadena = spinnerTAD.getSelectedItem().toString().split(" ")[0];
+            tensionDiastolica = Integer.parseInt(numCadena);
+            Log.d("Debug_SCORE","TAD: " + tensionDiastolica);
+        }
+        //HDL
+        if(spinnerHDL.getSelectedItemPosition() == 0){
+            builder.setMessage("No ha introducido su colesterol HDL");
+            builder.create();
+            builder.show();
+            return null;
+        }
+        else {
+            String numCadena = spinnerHDL.getSelectedItem().toString().split(" ")[0];
+            colHDL = Integer.parseInt(numCadena);
+            Log.d("Debug_SCORE","HDL: " + colHDL);
+        }
+        //LDL
+        if(spinnerColesterol.getSelectedItemPosition() == 0){
+            builder.setMessage("No ha introducido su colesterol total");
+            builder.create();
+            builder.show();
+            return null;
+        }
+        else {
+            String numCadena = spinnerColesterol.getSelectedItem().toString().split(" ")[0];
+            colTotal = Integer.parseInt(numCadena);
+            Log.d("Debug_SCORE","Col Total: " + colTotal);
+        }
+
+        //Tabaquismo
+        fumador = swTabaco.isChecked();
+        //Diabetes
+        diabetes = swDiabetes.isChecked();
+        //Hipertensión
+        hipertension = swHipertension.isChecked();
+        //Hipertrofia
+        hvi = swHipertrofia.isChecked();
+
+
+        CalculoRCV calculo = new CalculoRCV(this.usuario, fumador, diabetes, hvi, hipertension,  peso, altura,
+                actividadFisica, tensionDiastolica, tensionSiastolica, colHDL, colTotal);
+
+        return calculo;
+    }
+
+    private String [] setValoresSpinner(int min, int max, String unidad){
         ArrayList<String> valores = new ArrayList<String>();
         valores.add("Seleccione un valor");
 

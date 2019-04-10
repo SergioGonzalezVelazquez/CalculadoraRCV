@@ -9,7 +9,7 @@ public class FactoresRCV implements  ConstantesFactores, Serializable {
     private FactorRiesgo actividadFisica;
     private FactorRiesgo tensionArterial;
     private FactorRiesgo peso;
-    private FactorRiesgo colesterol;
+    private FactorRiesgo colTotal;
 
 
     public FactoresRCV(){
@@ -17,31 +17,31 @@ public class FactoresRCV implements  ConstantesFactores, Serializable {
         this.actividadFisica = new FactorRiesgo("Actividad Física");
         this.tensionArterial = new FactorRiesgo("Tensión Arterial");
         this.peso = new FactorRiesgo("Peso Ideal");
-        this.colesterol = new FactorRiesgo("Nivel de Colesterol");
+        this.colTotal = new FactorRiesgo("Nivel de Colesterol Total");
 
         //this.estres = new FactorRiesgo("Estrés");
     }
 
     public void setTabaco(boolean fumador) {
-        this.tabaco.setEstado(fumador);
+        this.tabaco.setEstado(!fumador);
         //this.tabaco.setValor((fumador) ? "Si" : "No");
     }
 
     public void setActividadFisica(int nivelActividad) {
         switch (nivelActividad){
-            case 0: // No, no practico ningún deporte
+            case 1: // No, no practico ningún deporte
                 this.actividadFisica.setEstado(false);
                 this.actividadFisica.setValor(DEPORTE_NADA);
                 break;
-            case 1:// Sí, mínimo una vez al mes
+            case 2:// Sí, mínimo una vez al mes
                 this.actividadFisica.setEstado(false);
                 this.actividadFisica.setValor(DEPORTE_POCO);
                 break;
-            case 2: //Sí, mínimo una vez por semana
+            case 3: //Sí, mínimo una vez por semana
                 this.actividadFisica.setEstado(true);
                 this.actividadFisica.setValor(DEPORTE_SEMANA);
                 break;
-            case 3://Sí, mínimo dos o tres veces por semana
+            case 4://Sí, mínimo dos o tres veces por semana
                 this.actividadFisica.setEstado(true);
                 this.actividadFisica.setValor(DEPORTE_MUCHO);;
                 break;
@@ -56,6 +56,7 @@ public class FactoresRCV implements  ConstantesFactores, Serializable {
     }
 
     public void setPeso(double peso, double altura) {
+        altura /= 100;
         double imc = (double) Math.round(peso/(altura*altura) * (100d/100d));
         this.peso.setEstado(imc<=18.50 || imc<=24.99);
         String cad;
@@ -70,9 +71,9 @@ public class FactoresRCV implements  ConstantesFactores, Serializable {
         }else if(imc<=25.00 || imc<=29.99){
             cad="IMC: "+imc+" Sobrepeso";
         }else if(imc<=30.00 || imc<=34.99){
-            cad="IMC: "+imc+" Obeso: Tipo I";
+            cad="IMC: "+imc+" Obesidad: Tipo I";
         }else if(imc<=35.00 || imc<=40.00){
-            cad="IMC: "+imc+" Obeso: Tipo III";
+            cad="IMC: "+imc+" Obesidad: Tipo III";
         }else{
             cad="no existe clasificacion";
         }
@@ -80,18 +81,18 @@ public class FactoresRCV implements  ConstantesFactores, Serializable {
 
     }
 
-    public void setColesterol(int colesterol) {
-        if (colesterol<=MAX_COLESTEROL_OPTIMO){
-            this.colesterol.setEstado(true);
-            this.colesterol.setValor(colesterol + "mg/dL: Deseable");
+    public void setColTotal(int colTotal) {
+        if (colTotal <=MAX_COLESTEROL_OPTIMO){
+            this.colTotal.setEstado(true);
+            this.colTotal.setValor(colTotal + "mg/dL: Deseable");
 
-        }else if(colesterol<=MAX_COLESTEROL){
-            this.colesterol.setEstado(true);
-            this.colesterol.setValor(colesterol + "mg/dL: Límite superior del rango normal");
+        }else if(colTotal <=MAX_COLESTEROL){
+            this.colTotal.setEstado(true);
+            this.colTotal.setValor(colTotal + "mg/dL: En el límite superior del rango normal");
 
         }else{
-            this.colesterol.setEstado(false);
-            this.colesterol.setValor(colesterol + "mg/dL: Alto");
+            this.colTotal.setEstado(false);
+            this.colTotal.setValor(colTotal + "mg/dL: Alto");
 
         }
 
@@ -102,7 +103,7 @@ public class FactoresRCV implements  ConstantesFactores, Serializable {
         listado.add(tabaco);
         listado.add(actividadFisica);
         listado.add(tensionArterial);
-        listado.add(colesterol);
+        listado.add(colTotal);
         listado.add(peso);
 
 
