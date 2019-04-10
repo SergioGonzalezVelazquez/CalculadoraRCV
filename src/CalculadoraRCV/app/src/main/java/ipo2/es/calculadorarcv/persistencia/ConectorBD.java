@@ -4,9 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import ipo2.es.calculadorarcv.dominio.CalculoRCV;
 import ipo2.es.calculadorarcv.dominio.Usuario;
 
 public class ConectorBD {
@@ -65,10 +68,11 @@ public class ConectorBD {
 
     public Usuario leerUsuario(int id){
         Usuario usuario = null;
-        String[] campos = new String[] {"email","pass","nombre","apellidos","genero","fechaNacimiento","ultimoAcceso"};
+        String[] campos = new String[] {"email","pass","nombre","apellidos","genero",
+                "fechaNacimiento","ultimoAcceso","foto"};
 
-        Cursor c = db.query("Usuario", campos, "idUser="+id, null, null, null,
-                null);
+        Cursor c = db.query("Usuario", campos, "idUser="+id, null,
+                null, null, null);
         //Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {
         //Recorremos el cursor hasta que no haya más registros
@@ -80,11 +84,55 @@ public class ConectorBD {
                 char genero = c.getString(4).charAt(0);;
                 String fechaNacimiento = c.getString(5);
                 String ultimoAcceso = c.getString(6);
-                usuario = new Usuario(email, pass, nombre, apellidos, genero, fechaNacimiento, ultimoAcceso, "");
+                String foto = c.getString(7);
+                usuario = new Usuario(id, email, pass, nombre, apellidos, genero, fechaNacimiento,
+                        ultimoAcceso, "");
             } while(c.moveToNext());
         }
 
+        usuario.setCalculosRCV(leerCalculos(usuario));
+
         return usuario;
+    }
+
+    private ArrayList<CalculoRCV> leerCalculos(Usuario usuario){
+        ArrayList<CalculoRCV> calculoRCVS = new ArrayList<CalculoRCV>();
+        String[] campos = new String[] {"fumador","diabetes","hvi","hipertension","peso","altura",
+                     "actividadFisica", "tas", "tad", "colHDL", "colTotal", "fecha"};
+        int idUser = usuario.getIdUser();
+
+        Cursor c = db.query("CalculosRCV", campos, "idUser="+idUser, null,
+                null, null, "fecha");
+
+        //Nos aseguramos de que existe al menos un registro
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                boolean fumador = false,diabetes = false, hvi = false,hipertension = false;
+                int altura,actividadFisica,tas,tad,colHDL,colTotal;
+                double peso;
+                String fecha;
+                if (c.getInt(0)==1) fumador=true;
+                if (c.getInt(1)==1) diabetes=true;
+                if (c.getInt(2)==1) hvi=true;
+                if (c.getInt(3)==1) hipertension=true;
+                peso = c.getDouble(4);
+                altura = c.getInt(5);
+                actividadFisica = c.getInt(6);
+                tas = c.getInt(7);
+                tad = c.getInt(8);
+                colHDL = c.getInt(9);
+                colTotal = c.getInt(10);
+                fecha= c.getString(11);
+                CalculoRCV calculo = new CalculoRCV(usuario, fumador, diabetes, hvi, hipertension, peso,
+                        altura,  actividadFisica, tad,  tas,  colHDL,
+                        colTotal, fecha);
+                calculoRCVS.add(calculo);
+                Log.d("Debug_BBDD","CalculosRCV leído:"+calculo.toString());
+            } while(c.moveToNext());
+        }
+
+        return calculoRCVS;
     }
 }
 

@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
                 break;
             case R.id.cerrarSesion:
                 Log.d("ActionBar","Pulsó la opción de menú Añadir Contacto");
+                finish();
                 break;
             case R.id.config:
                 Toast notificacion;

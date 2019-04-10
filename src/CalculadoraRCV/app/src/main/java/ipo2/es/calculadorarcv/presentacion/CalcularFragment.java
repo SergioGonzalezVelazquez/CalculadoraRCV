@@ -270,7 +270,7 @@ public class CalcularFragment extends Fragment {
 
 
         CalculoRCV calculo = new CalculoRCV(this.usuario, fumador, diabetes, hvi, hipertension,  peso, altura,
-                actividadFisica, tensionDiastolica, tensionSiastolica, colHDL, colTotal);
+                actividadFisica, tensionDiastolica, tensionSiastolica, colHDL, colTotal, null);
 
         return calculo;
     }

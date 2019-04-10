@@ -26,6 +26,7 @@ public class Usuario implements Serializable {
     private String email;
     private String ultimoAcceso;
     private String foto;
+    private int idUser;
     private ArrayList<Observador> observadores = new ArrayList<Observador>();
 
     public void registrarObservador (Observador o)
@@ -52,8 +53,9 @@ public class Usuario implements Serializable {
     private ArrayList<CalculoRCV> calculosRCV;
 
 
-    public Usuario(String email, String pass, String nombre, String apellidos, char genero, String fechaNacimiento,
+    public Usuario(int idUser, String email, String pass, String nombre, String apellidos, char genero, String fechaNacimiento,
                     String ultimoAcceso, String foto) {
+        this.idUser = idUser;
         this.pass = pass;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -131,6 +133,9 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
 
     public void nuevoCalculo(CalculoRCV calculo) {
         this.calculosRCV.add(calculo);
@@ -170,6 +175,10 @@ public class Usuario implements Serializable {
 
     public void setGenero(char genero) {
         this.genero = genero;
+    }
+
+    public void setCalculosRCV(ArrayList<CalculoRCV> calculosRCV) {
+        this.calculosRCV = calculosRCV;
     }
 
     @Override

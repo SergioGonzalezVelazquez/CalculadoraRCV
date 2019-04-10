@@ -19,7 +19,8 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
 
     //Factores Riesgo
     private boolean hvi, fumador, diabetes, hipertension;
-    private double altura, peso;
+    private int altura;
+    private double peso;
     private int actividadFisica;
     private int tensionDiastolica, tensionSiastolica, colHDL, colTotal;
 
@@ -33,8 +34,8 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
 
     //CONSTRUCTOR PARA NUEVO CALCULO
     public CalculoRCV(Usuario usuario, boolean fumador, boolean diabetes, boolean hvi,
-                      boolean hipertension, double peso, double altura, int actividadFisica,
-                      int tensionDiastolica, int tensionSiastolica, int colHDL, int colTotal)  {
+                      boolean hipertension, double peso, int altura, int actividadFisica,
+                      int tensionDiastolica, int tensionSiastolica, int colHDL, int colTotal, String fecha)  {
         this.id = 0;
         this.fecha = "";
         this.genero = usuario.getGenero();
@@ -50,7 +51,8 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         this.colHDL = colHDL;
         this.colTotal = colTotal;
 
-        this.fecha = this.dateFormat.format(new Date());;
+        if(fecha == null) this.fecha = this.dateFormat.format(new Date());
+        else this.fecha = fecha;
 
         this.factores = new FactoresRCV();
         this.establecerFactores();
@@ -125,7 +127,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(int altura) {
         this.altura = altura;
     }
 

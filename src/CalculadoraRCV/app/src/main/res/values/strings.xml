@@ -38,4 +38,5 @@
     <string name="Hipertensión">Hipertensión</string>
     <string name="Hipertrofia">Hipertrofia</string>
     <string name="txtCalcular">Calcular</string>
+    <string name="title_activity_acerca_de">AcercaDeActivity</string>
 </resources>
