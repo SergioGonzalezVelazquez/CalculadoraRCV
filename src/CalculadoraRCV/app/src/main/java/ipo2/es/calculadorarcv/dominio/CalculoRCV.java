@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class CalculoRCV implements Serializable, ConstantesFactores {
 
-    private int id;
+    private int idUser;
     private int score;
     private String fecha;
     private String valoracion;
@@ -36,7 +36,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
     public CalculoRCV(Usuario usuario, boolean fumador, boolean diabetes, boolean hvi,
                       boolean hipertension, double peso, int altura, int actividadFisica,
                       int tensionDiastolica, int tensionSiastolica, int colHDL, int colTotal, String fecha)  {
-        this.id = 0;
+        this.idUser = usuario.getIdUser();
         this.fecha = "";
         this.genero = usuario.getGenero();
         this.edad = usuario.getEdad();
@@ -62,8 +62,6 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
     }
 
     //CONSTRUCTOR PARA LEER BBDD
-
-
     private int calcularScore(char genero, int edad, boolean fumador, boolean diabetes,
                               int colLDL, int colHDL, boolean hvi, int pas){
         int score= FraminghamRiskScore.getRiskScore(genero, edad, fumador, diabetes,  colHDL, colLDL, hvi, pas);
@@ -87,12 +85,12 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
     }
 
 
-    public int getId() {
-        return id;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUser(int id) {
+        this.idUser = id;
     }
 
     public double getScore() {
@@ -161,6 +159,26 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         return tensionSiastolica;
     }
 
+    public int getFumadorInt(){
+        if (this.fumador) return 1;
+        else return 0;
+    }
+
+    public int getDiabetesInt(){
+        if (this.diabetes) return 1;
+        else return 0;
+    }
+
+    public int getHviInt(){
+        if (this.hvi) return 1;
+        else return 0;
+    }
+
+    public int getHipertensionInt(){
+        if (this.hipertension) return 1;
+        else return 0;
+    }
+
     public void setTensionSiastolica(int tensionSiastolica) {
         this.tensionSiastolica = tensionSiastolica;
     }
@@ -169,6 +187,21 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         this.factores = factores;
     }
 
+    public int getColHDL() {
+        return colHDL;
+    }
+
+    public void setColHDL(int colHDL) {
+        this.colHDL = colHDL;
+    }
+
+    public int getColTotal() {
+        return colTotal;
+    }
+
+    public void setColTotal(int colTotal) {
+        this.colTotal = colTotal;
+    }
 
     @Override
     public String toString() {

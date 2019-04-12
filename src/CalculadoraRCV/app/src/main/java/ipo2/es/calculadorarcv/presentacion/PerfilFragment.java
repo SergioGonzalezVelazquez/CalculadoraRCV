@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.Usuario;
 
@@ -23,6 +24,7 @@ public class PerfilFragment extends Fragment {
     private TextView lblFechaNacimiento;
     private TextView lblUltimoAcceso;
     private ImageButton btnEditar;
+    private CircleImageView profile_image;
 
 
     private OnFragmentInteractionListener mListener;
@@ -52,6 +54,7 @@ public class PerfilFragment extends Fragment {
         lblCorreo= view.findViewById(R.id.lblCorreo);
         lblFechaNacimiento = view.findViewById(R.id.lblFechaNacimiento);
         lblUltimoAcceso = view.findViewById(R.id.lblUltimoAcceso);
+        profile_image = view.findViewById(R.id.profile_image);
 
         //LABELS
         this.lbl_user_name.setText(this.usuario.getNombre() + " " + this.usuario.getApellidos());
@@ -59,6 +62,11 @@ public class PerfilFragment extends Fragment {
         this.lblUltimoAcceso.setText(this.usuario.getUltimoAcceso());
         this.lblFechaNacimiento.setText(this.usuario.getFechaNacimiento() + "\t("
                 + this.usuario.getEdad() +  " años)");
+
+        //Foto
+        if (!usuario.getFoto().equals("")){
+            this.profile_image.setImageResource(R.drawable.uclm);
+        }
 
 
         return view;

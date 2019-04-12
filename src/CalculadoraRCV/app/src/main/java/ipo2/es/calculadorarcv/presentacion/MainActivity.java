@@ -1,5 +1,7 @@
 package ipo2.es.calculadorarcv.presentacion;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,9 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.Usuario;
-import ipo2.es.calculadorarcv.dominio.CalculoRCV;
+
 
 
 public class MainActivity extends AppCompatActivity implements EstadoFragment.OnFragmentInteractionListener,
@@ -37,10 +41,7 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
         this.usuario = (Usuario) bundle.getSerializable("usuario");
         this.usuario.registrarObservador(this);
         Log.d("Debug_NAVIGATION",usuario.getEmail() + " ha iniciado sesión");
-        Fragment fragment = new EstadoFragment();
-        bundle.putSerializable("calculo",usuario.getUltimoRCV());
-        fragment.setArguments(bundle);
-        loadFragment(fragment);
+        lanzarEstadoFragment();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -58,12 +59,8 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
             case R.id.acercaDe:
                 Log.d("ActionBar","Pulsó la opción de menú Acerca de...");
                 //Se muestra una ventana de diálogo
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Acerca de...");
-                builder.setMessage("Aplicación creada por Sergio González");
-                builder.setPositiveButton("OK",null);
-                builder.create();
-                builder.show();
+                Intent i = new Intent(this, InfoActivity.class);
+                startActivity(i);
                 break;
             case R.id.cerrarSesion:
                 Log.d("ActionBar","Pulsó la opción de menú Añadir Contacto");
@@ -89,29 +86,16 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
             switch (item.getItemId()) {
                 case R.id.navigation_Estado:
                     Log.d("Debug_NAVIGATION",usuario.getEmail() + " pulsó la ventana estado");
-                    fragment = new EstadoFragment();
-                    bundle =  new Bundle();
-                    bundle.putSerializable("calculo",usuario.getUltimoRCV());
-                    fragment.setArguments(bundle);
-                    loadFragment(fragment);
+                    lanzarEstadoFragment();
                     return true;
                 case R.id.navigation_calcular:
                    // mTextMessage.setText(R.string.navigationEstado);
                     Log.d("Debug_NAVIGATION",usuario.getEmail() + " Pulsó la ventana calcular");
-                    //fragment = new CalcularFragment();
-                    fragment = new CalcularFragment();
-                    bundle =  new Bundle();
-                    bundle.putSerializable("usuario",usuario);
-                    fragment.setArguments(bundle);
-                    loadFragment(fragment);
+                   lanzarCalcularFragment();
                     return true;
                 case R.id.navigation_perfil:
                     Log.d("Debug_NAVIGATION",usuario.getEmail() + " Pulsó la ventana perfil");
-                    fragment = new PerfilFragment();
-                    bundle =  new Bundle();
-                    bundle.putSerializable("usuario",usuario);
-                    fragment.setArguments(bundle);
-                    loadFragment(fragment);
+                    lanzarPerfilFragment();
                     return true;
             }
             return false;
@@ -137,12 +121,60 @@ public class MainActivity extends AppCompatActivity implements EstadoFragment.On
     public void update() {
         Log.d("Debug_OBSERVADOR","Main Activity recibida notificación");
         navigation.getMenu().getItem(0).setChecked(true);
+        lanzarEstadoFragment();
+
+    }
+    private void lanzarPerfilFragment(){
+        Fragment fragment;
+        Bundle bundle;
+        fragment = new PerfilFragment();
+        bundle =  new Bundle();
+        bundle.putSerializable("usuario",usuario);
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
+
+    }
+
+    private void lanzarCalcularFragment(){
+        Fragment fragment;
+        Bundle bundle;
+        fragment = new CalcularFragment();
+        bundle =  new Bundle();
+        bundle.putSerializable("usuario",usuario);
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
+    }
+
+
+    private void lanzarEstadoFragment() {
         Fragment fragment;
         Bundle bundle;
         fragment = new EstadoFragment();
-        bundle =  new Bundle();
-        bundle.putSerializable("calculo",usuario.getUltimoRCV());
+        bundle = new Bundle();
+        bundle.putSerializable("calculo", usuario.getUltimoRCV());
         fragment.setArguments(bundle);
         loadFragment(fragment);
+        if (usuario.getUltimoRCV() == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Bienvenido");
+            builder.setMessage("Realice su primer cálculo de Riesgo Cardiovascular según el" +
+                    "Score de Framigham");
+
+            // Set click listener for alert dialog buttons
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    navigation.getMenu().getItem(1).setChecked(true);
+                    lanzarCalcularFragment();
+                }
+            };
+            builder.setPositiveButton("Realizar cálculo", dialogClickListener);
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.create();
+            builder.show();
+
+
+        }
+
     }
 }

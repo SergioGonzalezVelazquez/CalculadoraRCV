@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.CalculoRCV;
 import ipo2.es.calculadorarcv.dominio.Usuario;
+import ipo2.es.calculadorarcv.persistencia.ConectorBD;
 
 
 public class CalcularFragment extends Fragment {
@@ -29,6 +30,7 @@ public class CalcularFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private Usuario usuario;
+    private ConectorBD conectorBD;
 
     //Spinners
     private Spinner spinnerTAS;
@@ -88,16 +90,57 @@ public class CalcularFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calcular, container, false);
+
+        initViews(view);
+        initListeners();
+
+        return view;
+    }
+
+    private void initListeners() {
+        btnCalcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CalculoRCV calculoRCV = getValores();
+                if(calculoRCV != null){
+                    conectorBD.insertarCalculo(calculoRCV);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Completado");
+                    builder.setMessage("Se ha calculado el Riesgo Cardiovascular en función de los" +
+                            " parámetros introducidos");
+
+                    // Set click listener for alert dialog buttons
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            usuario.nuevoCalculo(calculoRCV);
+                        }
+                    };
+                    builder.setPositiveButton("Ver resultado",dialogClickListener);
+                    builder.setIcon(android.R.drawable.ic_menu_save);
+                    builder.create();
+                    builder.show();
+
+
+                }
+            }
+        });
+
+
+    }
+
+    private void initViews(View view) {
+        conectorBD = new ConectorBD(getActivity());
         lblAltura= view.findViewById(R.id.lblAltura);
         lblPeso = view.findViewById(R.id.lblPeso);
         swTabaco=view.findViewById(R.id.swTabaco);
         swDiabetes = view.findViewById(R.id.swDiabetes);
         swHipertension = view.findViewById(R.id.swHipertension);
         swHipertrofia = view.findViewById(R.id.swHipertrofia);
-
-
 
         //SPINNERS
         spinnerTAS = view.findViewById(R.id.spinner_TAS);
@@ -134,36 +177,6 @@ public class CalcularFragment extends Fragment {
         spinnerHDL.setAdapter(adapterHDL);
 
         btnCalcular = view.findViewById(R.id.btnCalcular);
-        btnCalcular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final CalculoRCV calculoRCV = getValores();
-                if(calculoRCV != null){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Completado");
-                    builder.setMessage("Se ha calculado el Riesgo Cardiovascular en función de los" +
-                            " parámetros introducidos");
-
-                    // Set click listener for alert dialog buttons
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            usuario.nuevoCalculo(calculoRCV);
-                        }
-                    };
-                    builder.setPositiveButton("Ver resultado",dialogClickListener);
-                    builder.setIcon(android.R.drawable.ic_menu_save);
-                    builder.create();
-                    builder.show();
-
-
-
-                }
-            }
-        });
-
-
-        return view;
     }
 
     private CalculoRCV getValores(){

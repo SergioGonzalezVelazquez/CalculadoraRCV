@@ -24,6 +24,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ipo2.es.calculadorarcv.presentacion.LoginActivity" />
         </activity>
+        <activity android:name=".presentacion.InfoActivity" />
+        <activity android:name=".presentacion.RegistrarActivity" />
     </application>
 
 </manifest>

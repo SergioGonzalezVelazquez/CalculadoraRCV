@@ -36,7 +36,7 @@
                 android:layout_margin="9dp"
                 android:contentDescription="@string/imagen_de_perfil"
                 android:padding="3dp"
-                android:src="@drawable/user_sergio"
+                android:src="@drawable/foto"
                 app:civ_border_color="@color/headings"
                 app:civ_border_width="3dp" />
 

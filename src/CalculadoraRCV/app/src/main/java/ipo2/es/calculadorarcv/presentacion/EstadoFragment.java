@@ -1,10 +1,13 @@
 package ipo2.es.calculadorarcv.presentacion;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +24,7 @@ import java.util.List;
 import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.CalculoRCV;
 import ipo2.es.calculadorarcv.dominio.FactorRiesgo;
+import ipo2.es.calculadorarcv.dominio.Usuario;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
@@ -41,6 +45,7 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
 
     private RecyclerView lstFactores;
     private AdaptadorListaFactor adaptador;
+    private Usuario usuario;
     PieChartView pieChartView;
 
     private CalculoRCV ultimoRCV;
@@ -50,6 +55,8 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
     private TextView lblValoracion;
 
     private int factorSeleccionado;
+
+    private Observador observador;
 
 
     public EstadoFragment() {
@@ -63,6 +70,7 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
 
         if (getArguments() != null) {
            this.ultimoRCV = (CalculoRCV) getArguments().getSerializable("calculo");
+
         }
 
 
@@ -73,7 +81,46 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_estado, container, false);
+        initViews(view);
+        setValores();
 
+
+        return view;
+    }
+
+    private void setValores() {
+
+        if(this.ultimoRCV != null){
+            //LISTADO FACTORES
+            factores = ultimoRCV.getFactores();
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+            lstFactores.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+            lstFactores.setLayoutManager(mLayoutManager);
+            adaptador = new AdaptadorListaFactor(factores, this);
+            lstFactores.setAdapter(adaptador);
+
+            //PIE CHART
+            //https://www.codingdemos.com/android-pie-chart-tutorial/
+            List<SliceValue> pieData = new ArrayList<>();
+            pieData.add(new SliceValue((float)this.ultimoRCV.getScore(),
+                    Color.parseColor("#b71c1c")));
+            pieData.add(new SliceValue(100-(float)this.ultimoRCV.getScore(), Color.LTGRAY));
+            PieChartData pieChartData = new PieChartData(pieData);
+            pieChartData.setHasCenterCircle(true).setCenterText1("").setCenterText1FontSize(20).
+                    setCenterText1Color(Color.parseColor("#0097A7"));
+            pieChartView.setPieChartData(pieChartData);
+
+            //LABELS
+            //lblScore.setText(String.format("%.2f%",this.ultimoRCV.getScore()));
+            lblScore.setText(String.valueOf(this.ultimoRCV.getScore())+"%");
+            txtFechaCalculo.setText("Cálculo realizado el "+this.ultimoRCV.getFecha());
+            lblValoracion.setText(this.ultimoRCV.getValoracion());
+
+        }
+
+    }
+
+    private void initViews(View view) {
         // Inflate the layout for this fragment
         lstFactores = view.findViewById(R.id.lstFactores);
         txtFechaCalculo = view.findViewById(R.id.txtFechaCalculo);
@@ -81,34 +128,6 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
         pieChartView = view.findViewById(R.id.chartScore);
         lblScore = view.findViewById(R.id.lblScore);
 
-        //LISTADO FACTORES
-        factores = ultimoRCV.getFactores();
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        lstFactores.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-        lstFactores.setLayoutManager(mLayoutManager);
-        adaptador = new AdaptadorListaFactor(factores, this);
-        lstFactores.setAdapter(adaptador);
-
-        //PIE CHART
-        //https://www.codingdemos.com/android-pie-chart-tutorial/
-        List<SliceValue> pieData = new ArrayList<>();
-        pieData.add(new SliceValue((float)this.ultimoRCV.getScore(),
-                Color.parseColor("#b71c1c")));
-        pieData.add(new SliceValue(100-(float)this.ultimoRCV.getScore(), Color.LTGRAY));
-        PieChartData pieChartData = new PieChartData(pieData);
-        pieChartData.setHasCenterCircle(true).setCenterText1("").setCenterText1FontSize(20).
-                setCenterText1Color(Color.parseColor("#0097A7"));
-        pieChartView.setPieChartData(pieChartData);
-
-        //LABELS
-        //lblScore.setText(String.format("%.2f%",this.ultimoRCV.getScore()));
-        lblScore.setText(String.valueOf(this.ultimoRCV.getScore())+"%");
-        txtFechaCalculo.setText("Cálculo realizado el "+this.ultimoRCV.getFecha());
-        lblValoracion.setText(this.ultimoRCV.getValoracion());
-
-
-
-        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -129,6 +148,12 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
         }
     }
 
+    public void setObservador(Observador observador)
+    {
+        this.observador = observador;
+    }
+
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -139,6 +164,25 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
     public void onFactorSeleccionado(int posicion) {
         Log.d("Debug_ESTADO", "Factor seleccionado: "+
                 factores.get(posicion).getNombre());
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+        switch (posicion){
+            case 0: //Tabaquismo
+
+                break;
+
+            case 1://Actividad Física
+                break;
+
+            case 2://Tensión Arterial
+                break;
+
+            case 3://Colesterol
+                break;
+
+            case 4://Peso Ideal
+                break;
+        }
 
     }
 

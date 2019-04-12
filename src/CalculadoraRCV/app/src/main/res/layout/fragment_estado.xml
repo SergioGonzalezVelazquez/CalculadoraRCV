@@ -9,6 +9,13 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <ImageView
+        android:id="@+id/separadorHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:src="@android:drawable/divider_horizontal_bright" />
+
     <LinearLayout
         android:id="@+id/LinearScore"
         android:layout_width="match_parent"
@@ -81,11 +88,21 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="false"
-                android:layout_marginStart="-88dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="-78dp"
+                android:layout_marginTop="134dp"
                 android:layout_toEndOf="@+id/txtScore"
                 android:text="Cáculo realizado el 15/02/2019 "
                 android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtRiesgo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="28dp"
+                android:text="Riesgo a 10 años:"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -95,13 +112,6 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/separadorHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:src="@android:drawable/divider_horizontal_bright" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lstFactores"

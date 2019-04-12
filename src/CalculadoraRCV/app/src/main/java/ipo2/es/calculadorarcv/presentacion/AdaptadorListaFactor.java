@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,14 +32,18 @@ public class AdaptadorListaFactor extends RecyclerView.Adapter<AdaptadorListaFac
         private TextView txtNombre;
         private TextView txtValor;
         private ImageView iconEstado;
+        private Button btnInfo;
         ViewHolder(View view) {
             super(view);
+            btnInfo = view.findViewById(R.id.btnInfo);
             txtNombre = view.findViewById(R.id.txtNombre);
             txtValor = view.findViewById(R.id.txtValor);
             iconEstado = view.findViewById(R.id.iconEstado);
 
             //asociar el oyente a la vista
             view.setOnClickListener(this);
+
+
         }
 
         @Override

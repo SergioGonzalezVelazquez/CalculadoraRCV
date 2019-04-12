@@ -7,5 +7,6 @@
 
     <color name="white">#FFFFFF</color>
     <color name="headings">#eeeeee</color>
+    <color name="url">#0645AD </color>
 
 </resources>

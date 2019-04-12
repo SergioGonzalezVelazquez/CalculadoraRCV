@@ -1,5 +1,6 @@
 package ipo2.es.calculadorarcv.persistencia;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -14,22 +15,23 @@ import ipo2.es.calculadorarcv.dominio.Usuario;
 
 public class ConectorBD {
 
-    static final String NOMBRE_BD = "rcv_app";
-
-    private DB_SQLiteHelper dbHelper;
+    static final String NOMBRE_BD = "RCV_BBDD";
+    private DB_Helper dbHelper;
     private SQLiteDatabase db;
+
+    //private DB_SQLiteHelper dbHelper;
 
     /*Constructor*/
     public ConectorBD (Context ctx)
     {
-        dbHelper = new DB_SQLiteHelper(ctx, NOMBRE_BD, null, 1);
+        dbHelper = new DB_Helper(ctx, NOMBRE_BD, null, 1);
     }
 
 
     /*Abre la conexión con la base de datos*/
     public ConectorBD abrir() throws SQLException
     {
-        db = dbHelper.getReadableDatabase();
+        db = dbHelper.getWritableDatabase();
         return this;
     }
 
@@ -41,32 +43,90 @@ public class ConectorBD {
     }
 
 
-    /*inserta un contacto en la BD*/
-    public void insertarContacto(String nombre, String telefono)
+    /*inserta un usuario en la BD*/
+    public void insertarUsuario(Usuario usuario)
     {
-        String consultaSQL = "INSERT INTO contactos VALUES('"+nombre+"','"+telefono+"')";
-        db.execSQL(consultaSQL);
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("email", usuario.getEmail());
+        values.put("pass", usuario.getPass());
+        values.put("nombre", usuario.getNombre());
+        values.put("apellidos", usuario.getApellidos());
+        values.put("genero",Character.toString(usuario.getGenero()));
+        values.put("fechaNacimiento", usuario.getFechaNacimiento());
+        values.put("ultimoAcceso", usuario.getUltimoAcceso());
+        values.put("foto",usuario.getFoto());
+
+        // Inserting Row
+        db.insert("Usuario", null, values);
+        db.close();
     }
+
+    /*inserta un usuario en la BD*/
+    public void insertarCalculo(CalculoRCV calculo)
+    {
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("idUser", calculo.getIdUser());
+        values.put("fumador", calculo.getFumadorInt());
+        values.put("diabetes", calculo.getDiabetesInt());
+        values.put("hvi", calculo.getHviInt());
+        values.put("hipertension",calculo.getHipertensionInt());
+        values.put("peso", calculo.getPeso());
+        values.put("altura", calculo.getAltura());
+        values.put("actividadFisica", calculo.getActividadFisica());
+        values.put("tas",calculo.getTensionSiastolica());
+        values.put("tad",calculo.getTensionDiastolica());
+        values.put("colHDL",calculo.getColHDL());
+        values.put("colTotal",calculo.getColTotal());
+        values.put("fecha",calculo.getFecha());
+
+
+        // Inserting Row
+        db.insert("CalculosRCV", null, values);
+        db.close();
+    }
+
+
     /*devuelve todos los Usuarios*/
     public Cursor listarUsuario()
     {
         return db.rawQuery("SELECT * FROM Usuario", null);
     }
 
-    public int checkUser(Usuario user)
+
+    public int checkUser(String email, String pass)
     {
+        db = dbHelper.getReadableDatabase();
         int id=-1;
         Cursor cursor=db.rawQuery("SELECT idUser FROM Usuario WHERE email=? AND pass=?",
-                new String[]{user.getEmail(), user.getPass()});
+                new String[]{email, pass});
         if(cursor.getCount()>0) {
             cursor.moveToFirst();
             id=cursor.getInt(0);
             cursor.close();
         }
+        db.close();
+        return id;
+    }
+
+    public int checkUser(String email)
+    {
+        db = dbHelper.getReadableDatabase();
+        int id=-1;
+        Cursor cursor=db.rawQuery("SELECT idUser FROM Usuario WHERE email=?",
+                new String[]{email});
+        if(cursor.getCount()>0) {
+            cursor.moveToFirst();
+            id=cursor.getInt(0);
+            cursor.close();
+        }
+        db.close();
         return id;
     }
 
     public Usuario leerUsuario(int id){
+        db = dbHelper.getReadableDatabase();
         Usuario usuario = null;
         String[] campos = new String[] {"email","pass","nombre","apellidos","genero",
                 "fechaNacimiento","ultimoAcceso","foto"};
@@ -91,11 +151,13 @@ public class ConectorBD {
         }
 
         usuario.setCalculosRCV(leerCalculos(usuario));
+        db.close();
 
         return usuario;
     }
 
     private ArrayList<CalculoRCV> leerCalculos(Usuario usuario){
+        db = dbHelper.getReadableDatabase();
         ArrayList<CalculoRCV> calculoRCVS = new ArrayList<CalculoRCV>();
         String[] campos = new String[] {"fumador","diabetes","hvi","hipertension","peso","altura",
                      "actividadFisica", "tas", "tad", "colHDL", "colTotal", "fecha"};
@@ -131,7 +193,7 @@ public class ConectorBD {
                 Log.d("Debug_BBDD","CalculosRCV leído:"+calculo.toString());
             } while(c.moveToNext());
         }
-
+        db.close();
         return calculoRCVS;
     }
 }

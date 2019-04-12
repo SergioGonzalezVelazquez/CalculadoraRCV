@@ -29,30 +29,15 @@ public class Usuario implements Serializable {
     private int idUser;
     private ArrayList<Observador> observadores = new ArrayList<Observador>();
 
-    public void registrarObservador (Observador o)
-    {
-        observadores.add(o);
-        o.update();
-    }
-    public void eliminarObservador (Observador o)
-    {
-        observadores.remove(o);
-    }
-    public void actualizarObservadores ()
-    {
-        Iterator<Observador> i = observadores.iterator();
-        while(i.hasNext())
-        {
-            Observador o = (Observador) i.next();
-            o.update();
-        }
-    }
-
 
     //Historial Cálculos RCV
     private ArrayList<CalculoRCV> calculosRCV;
 
+    private static final SimpleDateFormat dateFormat =
+            new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
+
+    //Constructor leer de BBDD
     public Usuario(int idUser, String email, String pass, String nombre, String apellidos, char genero, String fechaNacimiento,
                     String ultimoAcceso, String foto) {
         this.idUser = idUser;
@@ -70,11 +55,48 @@ public class Usuario implements Serializable {
 
     }
 
+    //Constructor registrar usuario
+
+
+    public Usuario( String email, String pass, String nombre, String apellidos, String fechaNacimiento,
+                    char genero, String foto) {
+        this.pass = pass;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.email = email;
+        this.foto = foto;
+
+        this.calculosRCV  = new ArrayList<CalculoRCV>();
+        this.ultimoAcceso = this.dateFormat.format(new Date());
+    }
+
+    //Constructor comprobar si existe usuario
     public Usuario(String email, String pass) {
         this.pass = pass;
         this.email = email;
 
 
+    }
+
+    public void registrarObservador (Observador o)
+    {
+        observadores.add(o);
+        o.update();
+    }
+    public void eliminarObservador (Observador o)
+    {
+        observadores.remove(o);
+    }
+    public void actualizarObservadores ()
+    {
+        Iterator<Observador> i = observadores.iterator();
+        while(i.hasNext())
+        {
+            Observador o = (Observador) i.next();
+            o.update();
+        }
     }
 
     public String getPass() {
@@ -143,8 +165,15 @@ public class Usuario implements Serializable {
         this.actualizarObservadores ();
     }
 
-    public CalculoRCV getUltimoRCV(){
-        return calculosRCV.get(this.calculosRCV.size() - 1);
+    public CalculoRCV getUltimoRCV()
+    {
+        if(this.getNumCalculosRCV() == 0){
+            return null;
+        }
+        else{
+            return calculosRCV.get(this.calculosRCV.size() - 1);
+        }
+
     }
 
 
@@ -172,6 +201,11 @@ public class Usuario implements Serializable {
     public char getGenero() {
         return genero;
     }
+
+    public int getNumCalculosRCV() {
+        return calculosRCV.size();
+    }
+
 
     public void setGenero(char genero) {
         this.genero = genero;
