@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentacion.RecomendacionesActivity">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/rellayTitulo1"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/headings">
+
+                <TextView
+                    android:id="@+id/txtTitulo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Título 1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorAccent" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rellayInfoTitulo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rellayTitulo1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <com.codesgood.views.JustifiedTextView
+                        android:id="@+id/txtInfoTitulo1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Texto dinámico"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="30dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rellayTitulo2"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@id/rellayInfoTitulo1"
+                android:background="@color/headings">
+
+                <TextView
+                    android:id="@+id/txtTitulo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Título 2"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorAccent" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rellayInfoTitulo2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rellayTitulo2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <com.codesgood.views.JustifiedTextView
+                        android:id="@+id/txtInfoTitulo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Texto dinámico"
+                        android:layout_marginTop="10dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

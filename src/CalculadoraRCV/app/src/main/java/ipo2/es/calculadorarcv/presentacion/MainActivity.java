@@ -22,7 +22,7 @@ import ipo2.es.calculadorarcv.dominio.Usuario;
 
 
 
-public class MainActivity extends AppCompatActivity implements EstadoFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements Serializable,EstadoFragment.OnFragmentInteractionListener,
         CalcularFragment.OnFragmentInteractionListener,
         PerfilFragment.OnFragmentInteractionListener, Observador{
 

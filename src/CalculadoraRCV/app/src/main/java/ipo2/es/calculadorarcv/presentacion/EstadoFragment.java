@@ -164,23 +164,39 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
     public void onFactorSeleccionado(int posicion) {
         Log.d("Debug_ESTADO", "Factor seleccionado: "+
                 factores.get(posicion).getNombre());
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
+        Intent j = new Intent(getActivity(), RecomendacionesActivity.class);
         switch (posicion){
-            case 0: //Tabaquismo
 
+            case 0: //Tabaquismo
+                j.putExtra("titulo1",getText(R.string.factorTabaco));
+                j.putExtra("info1",getText(R.string.efectoTabaco));
+                j.putExtra("titulo2",getText(R.string.consejosFumar));
+                j.putExtra("info2",getText(R.string.dejarFumar));
+                startActivity(j);
                 break;
 
             case 1://Actividad Física
+                j.putExtra("titulo1",getText(R.string.factorActividadFisica));
+                j.putExtra("info1",getText(R.string.efectoActividadFisica));
+                j.putExtra("titulo2",getText(R.string.trucosActividadFisica));
+                j.putExtra("info2",getText(R.string.infoActividadFisica));
+                startActivity(j);
                 break;
 
             case 2://Tensión Arterial
+                startActivity(j);
+                j.putExtra("titulo1",getText(R.string.factorActividadFisica));
+                j.putExtra("info1",getText(R.string.efectoActividadFisica));
+                j.putExtra("titulo2",getText(R.string.trucosActividadFisica));
+                j.putExtra("info2",getText(R.string.infoActividadFisica));
                 break;
 
             case 3://Colesterol
+                startActivity(j);
                 break;
 
             case 4://Peso Ideal
+                startActivity(j);
                 break;
         }
 

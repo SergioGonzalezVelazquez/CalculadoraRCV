@@ -1,6 +1,6 @@
 package ipo2.es.calculadorarcv.dominio;
 
-import android.util.Log;
+import java.io.Serializable;
 
 /**
  * This is the server logic for the Framingham Risk Score Calculator.
@@ -13,7 +13,7 @@ import android.util.Log;
  *  https://github.com/ankuznetsov/Framingham_risk_score/blob/master/server.R
  */
 
-public final class FraminghamRiskScore {
+public final class FraminghamRiskScore implements Serializable {
 
     private static int scoreMen(int edad, boolean fumador, boolean diabetes,
                                 int colHDL, int colTotal, boolean hvi, int pas){
@@ -52,9 +52,9 @@ public final class FraminghamRiskScore {
         points += get_pas_score(pas);
 
         /*---------------------------------------
-        /       COLESTEROL  LDL (malo)(mg/dl)
+        /       COLESTEROL  Total (malo)(mg/dl)
         /--------------------------------------*/
-        points += get_colLDL_score(colTotal);
+        points += get_colTotal_score(colTotal);
 
         /*---------------------------------------
         /       COLESTEROL HDL (bueno)(mg/dl)
@@ -117,7 +117,7 @@ public final class FraminghamRiskScore {
         /*---------------------------------------
         /       COLESTEROL LDL (malo)(mg/dl)
         /--------------------------------------*/
-        points += get_colLDL_score(colTotal);
+        points += get_colTotal_score(colTotal);
 
         /*---------------------------------------
         /       COLESTEROL HDL (bueno)(mg/dl)
@@ -155,7 +155,7 @@ public final class FraminghamRiskScore {
         return score;
     }
 
-    private static int get_colLDL_score(int col){
+    private static int get_colTotal_score(int col){
         int score = 0;
         if(col<=151) score+=-3;
         else if(col<=166) score+=-2;
@@ -174,16 +174,21 @@ public final class FraminghamRiskScore {
 
     private static int get_colHDL_score(int col){
         int score = 0;
-        if(col<=151) score+=-3;
-        else if(col<=166) score+=-2;
-        else if(col<=182) score+=-1;
-        else if(col<=199) score+=0;
-        else if(col<=219) score+=1;
-        else if(col<=239) score+=2;
-        else if(col<=262) score+=3;
-        else if(col<=288) score+=4;
-        else if(col<=315) score+=5;
-        else score += 6;
+        if(col<=26) score+=7;
+        else if(col<=29) score+=6;
+        else if(col<=32) score+=5;
+        else if(col<=35) score+=4;
+        else if(col<=38) score+=3;
+        else if(col<=42) score+=2;
+        else if(col<=46) score+=1;
+        else if(col<=50) score+=0;
+        else if(col<=55) score-=1;
+        else if(col<=60) score-=2;
+        else if(col<=66) score-=3;
+        else if(col<=73) score-=4;
+        else if(col<=80) score-=5;
+        else if(col<=87) score-=6;
+        else score -=7 ;
 
 
         return score;

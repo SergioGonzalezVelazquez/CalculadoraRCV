@@ -84,6 +84,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:text="@string/riesgoBajo"/>
+
+                    <com.codesgood.views.JustifiedTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/riesgoInfo"/>
                     <com.codesgood.views.JustifiedTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -151,6 +157,18 @@
                         android:text="@string/txtCorreo"
                         android:textColor="@color/url" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtAutor2"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtCorreo2"
+                        android:textColor="@color/url" />
+
                     <com.codesgood.views.JustifiedTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -192,6 +210,37 @@
                     android:layout_height="1dp"
                     android:layout_alignParentEnd="true"
                     android:background="@color/colorAccent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rellayInfoBibliografia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rellayBibliografia">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bib1" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/bib2" />
+
+
+
+
+                </LinearLayout>
+
             </RelativeLayout>
 
         </RelativeLayout>

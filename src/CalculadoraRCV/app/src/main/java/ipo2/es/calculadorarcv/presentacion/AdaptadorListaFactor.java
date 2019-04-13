@@ -32,10 +32,8 @@ public class AdaptadorListaFactor extends RecyclerView.Adapter<AdaptadorListaFac
         private TextView txtNombre;
         private TextView txtValor;
         private ImageView iconEstado;
-        private Button btnInfo;
         ViewHolder(View view) {
             super(view);
-            btnInfo = view.findViewById(R.id.btnInfo);
             txtNombre = view.findViewById(R.id.txtNombre);
             txtValor = view.findViewById(R.id.txtValor);
             iconEstado = view.findViewById(R.id.iconEstado);
@@ -75,7 +73,7 @@ public class AdaptadorListaFactor extends RecyclerView.Adapter<AdaptadorListaFac
             //Cargar icono check
             holder.iconEstado.setImageResource(R.drawable.ic_done_tick);
         }else{
-            //Cargar icono avertencia
+            //Cargar icono advertencia
             holder.iconEstado.setImageResource(R.drawable.ic_warning_sign);
 
         }

@@ -34,15 +34,10 @@ public class CalcularFragment extends Fragment {
 
     //Spinners
     private Spinner spinnerTAS;
-    private String[] valoresTAS;
     private Spinner spinnerTAD;
-    private String[] valoresTAD;
     private Spinner spinnerFisica;
-    private String[] valoresFisica;
     private Spinner spinnerColesterol;
-    private String[] valoresColesterol;
     private Spinner spinnerHDL;
-    private String[] valoresHDL;
 
     //EditText
     private EditText lblAltura;
@@ -144,34 +139,34 @@ public class CalcularFragment extends Fragment {
 
         //SPINNERS
         spinnerTAS = view.findViewById(R.id.spinner_TAS);
-        valoresTAS = setValoresSpinner(90,190, "mmHg");
+        String [] valoresTAS = setValoresSpinner(90,190, "mmHg");
         ArrayAdapter<String> adapterTAS = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresTAS);
         spinnerTAS.setAdapter(adapterTAS);
 
 
         spinnerTAD = view.findViewById(R.id.spinner_TAD);
-        valoresTAD = setValoresSpinner(46,105, "mmHg");
+        String [] valoresTAD = setValoresSpinner(46,105, "mmHg");
         ArrayAdapter<String> adapterTAD = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresTAD);
         spinnerTAD.setAdapter(adapterTAD);
 
         spinnerFisica = view.findViewById(R.id.spinner_Fisica);
-        valoresFisica = new String[]{"Seleccione un valor", "No, no práctico ningún deporte",
+        String [] valoresFisica = new String[]{"Seleccione un valor", "No, no práctico ningún deporte",
                 "Sí, mínimo una vez al mes", "Sí, minimo una vez por semana",
                 "Sí, mínimo dos veces por semana"};
         ArrayAdapter<String> adapterFisica = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresFisica);
         spinnerFisica.setAdapter(adapterFisica);
 
-        spinnerColesterol = view.findViewById(R.id.spinner_LDL);
-        valoresColesterol = setValoresSpinner(139,330, "mg/dl");
+        spinnerColesterol = view.findViewById(R.id.spinner_colTotal);
+        String [] valoresColTotal = setValoresSpinner(139,330, "mg/dl");
         ArrayAdapter<String> adapterLDL = new ArrayAdapter<>(this.getActivity(),
-                android.R.layout.simple_spinner_item, valoresColesterol);
+                android.R.layout.simple_spinner_item, valoresColTotal);
         spinnerColesterol.setAdapter(adapterLDL);
 
         spinnerHDL = view.findViewById(R.id.spinner_HDL);
-        valoresHDL = setValoresSpinner(25,100, "mg/dl");
+        String [] valoresHDL = setValoresSpinner(25,100, "mg/dl");
         ArrayAdapter<String> adapterHDL = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, valoresHDL);
         spinnerHDL.setAdapter(adapterHDL);

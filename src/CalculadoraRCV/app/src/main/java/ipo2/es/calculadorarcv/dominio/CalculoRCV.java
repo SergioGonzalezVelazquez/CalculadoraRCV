@@ -61,13 +61,13 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
                 this.colTotal, this.hvi, this.tensionSiastolica);
     }
 
-    //CONSTRUCTOR PARA LEER BBDD
+
     private int calcularScore(char genero, int edad, boolean fumador, boolean diabetes,
                               int colLDL, int colHDL, boolean hvi, int pas){
         int score= FraminghamRiskScore.getRiskScore(genero, edad, fumador, diabetes,  colHDL, colLDL, hvi, pas);
 
         if (score>=22 || diabetes) this.valoracion=RCV_ALTO;
-        else if (score<22 || fumador || hipertension) this.valoracion=RCV_MODERADO ;
+        else if (fumador || hipertension) this.valoracion=RCV_MODERADO ;
         else this.valoracion=RCV_BAJO;
         return score;
     }

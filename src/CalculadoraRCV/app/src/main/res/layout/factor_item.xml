@@ -40,11 +40,10 @@
             android:text="@string/txtValor" />
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/btnInfo"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        android:drawableBottom="@drawable/ic_ellipsis" />
+        android:src="@drawable/ic_ellipsis" />
 </LinearLayout>

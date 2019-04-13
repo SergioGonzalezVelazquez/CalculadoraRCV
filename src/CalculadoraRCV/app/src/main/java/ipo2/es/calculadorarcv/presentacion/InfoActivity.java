@@ -8,7 +8,6 @@ import ipo2.es.calculadorarcv.R;
 import ipo2.es.calculadorarcv.dominio.Usuario;
 
 public class InfoActivity extends AppCompatActivity {
-    private Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

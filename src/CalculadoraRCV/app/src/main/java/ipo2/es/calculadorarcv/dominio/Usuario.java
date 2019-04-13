@@ -1,5 +1,7 @@
 package ipo2.es.calculadorarcv.dominio;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -230,4 +232,6 @@ public class Usuario implements Serializable {
                 ", foto='" + foto + '\'' +
                 '}';
     }
+
+
 }
