@@ -29,7 +29,6 @@ public class Usuario implements Serializable {
     private int idUser;
     private ArrayList<Observador> observadores = new ArrayList<Observador>();
 
-
     //Historial Cálculos RCV
     private ArrayList<CalculoRCV> calculosRCV;
 
@@ -125,6 +124,10 @@ public class Usuario implements Serializable {
 
     public String getFechaNacimiento() {
         return fechaNacimiento;
+    }
+
+    public ArrayList<CalculoRCV> getCalculosRCV() {
+        return calculosRCV;
     }
 
     public void setFechaNacimiento(String fechaNacimiento) {

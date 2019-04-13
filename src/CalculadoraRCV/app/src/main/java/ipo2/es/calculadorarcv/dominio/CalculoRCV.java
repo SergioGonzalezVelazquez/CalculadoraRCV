@@ -93,7 +93,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
         this.idUser = id;
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
