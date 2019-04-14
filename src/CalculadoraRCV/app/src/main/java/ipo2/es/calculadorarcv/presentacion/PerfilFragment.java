@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,7 +93,10 @@ public class PerfilFragment extends Fragment {
         }
 
         //GRAFICO CALCULOS
-        drawChart();
+        if (usuario.getCalculosRCV().size()>0){
+            drawChart();
+        }
+
     }
 
     private void initViews(View view) {
@@ -120,7 +122,7 @@ public class PerfilFragment extends Fragment {
         ArrayList<CalculoRCV> calculos = usuario.getCalculosRCV();
         Log.d("DEBUG_Calculo", calculos.size()+" cálculos");
 
-        int[] yAxisData = {0, 5, 10, 15, 20, 25, 30};
+        int[] yAxisData = {0, 5, 10, 15, 20, 25, 30, 35, 40, 45};
 
         List yAxisValues = new ArrayList();
         List axisValues = new ArrayList();
@@ -136,7 +138,7 @@ public class PerfilFragment extends Fragment {
         for (int i = 0; i < calculos.size(); i++) {
             Log.d("DEBUG_Calculo", "Calculo "+i+": "+calculos.get(i).getScore());
 
-            yAxisValues.add(new PointValue(i, calculos.get(i).getScore()));
+            yAxisValues.add(new PointValue(i, calculos.get(i).getRisk()));
         }
 
         List lines = new ArrayList();
@@ -152,14 +154,15 @@ public class PerfilFragment extends Fragment {
         data.setAxisXBottom(axis);
 
         Axis yAxis = new Axis();
-        yAxis.setName("Score");
+        yAxis.setName("Riesgo CV");
         yAxis.setTextColor(getResources().getColor(R.color.colorAccent));
         yAxis.setTextSize(13);
         data.setAxisYLeft(yAxis);
 
         chartHistorial.setLineChartData(data);
         Viewport viewport = new Viewport(chartHistorial.getMaximumViewport());
-        viewport.top = 30;
+        viewport.top = usuario.getMaxRisk() + 5;
+        viewport.bottom = 0;
         chartHistorial.setMaximumViewport(viewport);
         chartHistorial.setCurrentViewport(viewport);
 

@@ -12,6 +12,7 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
 
     private int idUser;
     private int score;
+    private int risk;
     private String fecha;
     private String valoracion;
     private int edad;
@@ -59,12 +60,13 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
 
         this.score = this.calcularScore(this.genero, this.edad, this. fumador, this. diabetes, this.colHDL,
                 this.colTotal, this.hvi, this.tensionSiastolica);
+        this.risk = FraminghamRiskScore.scoreToRisk(this.score);
     }
 
 
     private int calcularScore(char genero, int edad, boolean fumador, boolean diabetes,
-                              int colLDL, int colHDL, boolean hvi, int pas){
-        int score= FraminghamRiskScore.getRiskScore(genero, edad, fumador, diabetes,  colHDL, colLDL, hvi, pas);
+                               int colHDL, int colTotal, boolean hvi, int pas){
+        int score= FraminghamRiskScore.getRiskScore(genero, edad, fumador, diabetes,  colHDL, colTotal, hvi, pas);
 
         if (score>=22 || diabetes) this.valoracion=RCV_ALTO;
         else if (fumador || hipertension) this.valoracion=RCV_MODERADO ;
@@ -157,6 +159,15 @@ public class CalculoRCV implements Serializable, ConstantesFactores {
 
     public double getTensionSiastolica() {
         return tensionSiastolica;
+    }
+
+
+    public int getRisk() {
+        return risk;
+    }
+
+    public void setRisk(int risk) {
+        this.risk = risk;
     }
 
     public int getFumadorInt(){

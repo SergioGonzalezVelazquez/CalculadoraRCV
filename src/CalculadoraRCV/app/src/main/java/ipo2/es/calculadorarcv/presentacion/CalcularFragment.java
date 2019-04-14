@@ -113,6 +113,14 @@ public class CalcularFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             usuario.nuevoCalculo(calculoRCV);
+                            EstadoFragment fr=new EstadoFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("calculo", calculoRCV);
+                            fr.setArguments(bundle);
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.frame_container,fr)
+                                    .addToBackStack(null)
+                                    .commit();
                         }
                     };
                     builder.setPositiveButton("Ver resultado",dialogClickListener);

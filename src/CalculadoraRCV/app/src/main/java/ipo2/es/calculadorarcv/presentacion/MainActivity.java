@@ -23,8 +23,8 @@ import ipo2.es.calculadorarcv.dominio.Usuario;
 
 
 public class MainActivity extends AppCompatActivity implements Serializable,EstadoFragment.OnFragmentInteractionListener,
-        CalcularFragment.OnFragmentInteractionListener,
-        PerfilFragment.OnFragmentInteractionListener, Observador{
+        CalcularFragment.OnFragmentInteractionListener, PerfilFragment.OnFragmentInteractionListener{
+
 
     private Usuario usuario;
     private BottomNavigationView navigation;
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements Serializable,Esta
 
         Bundle bundle=getIntent().getExtras();
         this.usuario = (Usuario) bundle.getSerializable("usuario");
-        this.usuario.registrarObservador(this);
         Log.d("Debug_NAVIGATION",usuario.getEmail() + " ha iniciado sesión");
         lanzarEstadoFragment();
 
@@ -117,13 +116,6 @@ public class MainActivity extends AppCompatActivity implements Serializable,Esta
 
     }
 
-    @Override
-    public void update() {
-        Log.d("Debug_OBSERVADOR","Main Activity recibida notificación");
-        navigation.getMenu().getItem(0).setChecked(true);
-        lanzarEstadoFragment();
-
-    }
     private void lanzarPerfilFragment(){
         Fragment fragment;
         Bundle bundle;
@@ -158,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements Serializable,Esta
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Bienvenido");
             builder.setMessage("Realice su primer cálculo de Riesgo Cardiovascular según el" +
-                    "Score de Framigham");
+                    " Score de Framingham");
 
             // Set click listener for alert dialog buttons
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -169,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements Serializable,Esta
                 }
             };
             builder.setPositiveButton("Realizar cálculo", dialogClickListener);
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
+
             builder.create();
             builder.show();
 

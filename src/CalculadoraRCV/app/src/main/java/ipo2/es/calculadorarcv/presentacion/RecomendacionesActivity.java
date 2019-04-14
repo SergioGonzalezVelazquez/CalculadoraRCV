@@ -17,7 +17,7 @@ public class RecomendacionesActivity extends AppCompatActivity {
     private TextView twTitulo2;
     private JustifiedTextView jtvInfo1;
     private JustifiedTextView jtvInfo2;
-    private String txtTitulo1, txtTitulo2, txtInfo1, txtInfo2;
+    private String txtTitulo1, txtTitulo2,txtInfo1, txtInfo2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

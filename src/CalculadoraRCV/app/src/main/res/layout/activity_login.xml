@@ -74,12 +74,11 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textViewLinkRegister"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="111dp"
         android:gravity="center"
+        android:layout_below="@id/cardViewEntrar"
+        android:layout_marginTop="20dp"
         android:text="@string/text_not_member"
         android:textSize="16dp"
         android:textStyle="bold" />

@@ -1,7 +1,5 @@
 package ipo2.es.calculadorarcv.dominio;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -14,25 +12,21 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
-import ipo2.es.calculadorarcv.persistencia.ConectorBD;
-import ipo2.es.calculadorarcv.presentacion.LoginActivity;
-import ipo2.es.calculadorarcv.presentacion.Observador;
-
 
 public class Usuario implements Serializable {
     private String pass;
     private String nombre;
     private String apellidos;
     private String fechaNacimiento;
-    private char genero;
+    private char genero; //h=hombre; m=mujer;
     private String email;
     private String ultimoAcceso;
     private String foto;
     private int idUser;
-    private ArrayList<Observador> observadores = new ArrayList<Observador>();
 
     //Historial Cálculos RCV
     private ArrayList<CalculoRCV> calculosRCV;
+    private int maxRisk;
 
     private static final SimpleDateFormat dateFormat =
             new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -53,6 +47,7 @@ public class Usuario implements Serializable {
         this.foto=foto;
 
         this.calculosRCV  = new ArrayList<CalculoRCV>();
+        this.maxRisk = 0;
 
     }
 
@@ -79,25 +74,6 @@ public class Usuario implements Serializable {
         this.email = email;
 
 
-    }
-
-    public void registrarObservador (Observador o)
-    {
-        observadores.add(o);
-        o.update();
-    }
-    public void eliminarObservador (Observador o)
-    {
-        observadores.remove(o);
-    }
-    public void actualizarObservadores ()
-    {
-        Iterator<Observador> i = observadores.iterator();
-        while(i.hasNext())
-        {
-            Observador o = (Observador) i.next();
-            o.update();
-        }
     }
 
     public String getPass() {
@@ -166,8 +142,7 @@ public class Usuario implements Serializable {
 
     public void nuevoCalculo(CalculoRCV calculo) {
         this.calculosRCV.add(calculo);
-        Log.d("Debug_OBSERVADOR","Usuario enviada notificación");
-        this.actualizarObservadores ();
+        if(calculo.getRisk() > maxRisk) maxRisk = calculo.getRisk();
     }
 
     public CalculoRCV getUltimoRCV()
@@ -179,6 +154,11 @@ public class Usuario implements Serializable {
             return calculosRCV.get(this.calculosRCV.size() - 1);
         }
 
+    }
+
+
+    public int getMaxRisk() {
+        return maxRisk;
     }
 
 
@@ -194,6 +174,21 @@ public class Usuario implements Serializable {
         } catch (ParseException e) {
             return 0;
         }
+    }
+
+    private int calcularMaxRisk(){
+
+        int max=calculosRCV.get(0).getRisk();
+
+        for(int i = 0; i < calculosRCV.size(); i++)
+        {
+            if(max<calculosRCV.get(i).getRisk())
+            {
+                max=calculosRCV.get(i).getRisk();
+            }
+        }
+
+        return max;
     }
     private int calculaEdad(Date fechaNacimiento, Date fechaActual) {
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
@@ -218,6 +213,10 @@ public class Usuario implements Serializable {
 
     public void setCalculosRCV(ArrayList<CalculoRCV> calculosRCV) {
         this.calculosRCV = calculosRCV;
+        if(calculosRCV.size()>0){
+            this.maxRisk = calcularMaxRisk();
+        }
+
     }
 
     @Override
@@ -227,11 +226,11 @@ public class Usuario implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                ", genero=" + genero +
                 ", email='" + email + '\'' +
                 ", ultimoAcceso='" + ultimoAcceso + '\'' +
                 ", foto='" + foto + '\'' +
+                ", idUser=" + idUser +
                 '}';
     }
-
-
 }

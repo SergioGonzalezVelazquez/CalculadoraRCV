@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,12 +49,12 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
     private CalculoRCV ultimoRCV;
     private ArrayList<FactorRiesgo> factores;
     private TextView lblScore;
+    private TextView lblRisk;
     private TextView txtFechaCalculo;
     private TextView lblValoracion;
 
     private int factorSeleccionado;
 
-    private Observador observador;
 
 
     public EstadoFragment() {
@@ -112,9 +110,12 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
 
             //LABELS
             //lblScore.setText(String.format("%.2f%",this.ultimoRCV.getScore()));
-            lblScore.setText(String.valueOf(this.ultimoRCV.getScore())+"%");
+            lblScore.setText(String.valueOf(this.ultimoRCV.getScore())+" puntos");
+            lblRisk.setText(String.valueOf(this.ultimoRCV.getRisk())+"%");
             txtFechaCalculo.setText("Cálculo realizado el "+this.ultimoRCV.getFecha());
             lblValoracion.setText(this.ultimoRCV.getValoracion());
+
+            Log.d("DEBUG_Calculo","Calculo: " + ultimoRCV.toString());
 
         }
 
@@ -126,6 +127,7 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
         txtFechaCalculo = view.findViewById(R.id.txtFechaCalculo);
         lblValoracion = view.findViewById(R.id.lblValoracion);
         pieChartView = view.findViewById(R.id.chartScore);
+        lblRisk = view.findViewById(R.id.lblRisk);
         lblScore = view.findViewById(R.id.lblScore);
 
     }
@@ -148,10 +150,6 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
         }
     }
 
-    public void setObservador(Observador observador)
-    {
-        this.observador = observador;
-    }
 
 
     @Override
@@ -184,18 +182,26 @@ public class EstadoFragment extends Fragment implements AdaptadorListaFactor.OnI
                 break;
 
             case 2://Tensión Arterial
+                j.putExtra("titulo1",getText(R.string.factorTA));
+                j.putExtra("info1",getText(R.string.taInfo1));
+                j.putExtra("titulo2",getText(R.string.trucosTA));
+                j.putExtra("info2",getText(R.string.taInfo2));
                 startActivity(j);
-                j.putExtra("titulo1",getText(R.string.factorActividadFisica));
-                j.putExtra("info1",getText(R.string.efectoActividadFisica));
-                j.putExtra("titulo2",getText(R.string.trucosActividadFisica));
-                j.putExtra("info2",getText(R.string.infoActividadFisica));
                 break;
 
             case 3://Colesterol
+                j.putExtra("titulo1",getText(R.string.factorColesterol));
+                j.putExtra("info1",getText(R.string.colesterolInfo1));
+                j.putExtra("titulo2",getText(R.string.recomendacionesColesterol));
+                j.putExtra("info2",getText(R.string.colesterolInfo2));
                 startActivity(j);
                 break;
 
             case 4://Peso Ideal
+                j.putExtra("titulo1",getText(R.string.IMC));
+                j.putExtra("info1",getText(R.string.IMCinfo1));
+                j.putExtra("titulo2",getText(R.string.infoPesoIdeal));
+                j.putExtra("info2",getText(R.string.IMCinfo2));
                 startActivity(j);
                 break;
         }
