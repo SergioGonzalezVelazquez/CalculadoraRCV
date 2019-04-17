@@ -1,6 +1,5 @@
 package ipo2.es.calculadorarcv.dominio;
 
-import android.util.Log;
 
 import java.io.Serializable;
 
@@ -47,8 +46,6 @@ public final class FraminghamRiskScore implements Serializable {
         else if(edad >= 71 && edad <= 73 ) points = points + 18;
         else if(edad >= 74) points = points +19;
 
-        Log.d("Debug_Score", "Edad hombre: "+points);
-
 
         /*---------------------------------------
         /       PRESIÓN ARTERIAL SISTÓLICA
@@ -69,15 +66,10 @@ public final class FraminghamRiskScore implements Serializable {
         /*---------------------------------------
         /               OTROS FACTORES
         /--------------------------------------*/
-        if(fumador) {
-            points+=4;
-            Log.d("Debug_Score", "Fumador hombre: "+4);
-        }
+        if(fumador) points+=4;
 
-        if(diabetes){
-            points += 3;
-            Log.d("Debug_Score", "diabetes: "+3);
-        }
+        if(diabetes) points += 3;
+
         if(hvi) points += 9;
 
 
@@ -89,7 +81,7 @@ public final class FraminghamRiskScore implements Serializable {
                                    int colHDL, int colTotal, boolean hvi, int pas){
 
         int points = 0;
-        
+
         /*---------------------------------------
         /               Edad mujeres
         /--------------------------------------*/
@@ -120,8 +112,6 @@ public final class FraminghamRiskScore implements Serializable {
             else points = points + 11;
         }
 
-        Log.d("Debug_Score", "Edad Mujer: "+points);
-
         /*---------------------------------------
         /       PRESIÓN ARTERIAL SISTÓLICA
         /--------------------------------------*/
@@ -142,14 +132,10 @@ public final class FraminghamRiskScore implements Serializable {
         /*---------------------------------------
         /               OTROS FACTORES
         /--------------------------------------*/
-        if(fumador){
-            Log.d("Debug_Score", "Fumador: "+4);
-            points+=4;
-        }
-        if(diabetes){
-            Log.d("Debug_Score", "Fumador: "+6);
-            points += 6;
-        }
+        if(fumador)points+=4;
+
+        if(diabetes) points += 6;
+
         if(hvi) points += 9;
 
 
@@ -169,8 +155,6 @@ public final class FraminghamRiskScore implements Serializable {
         else if(pas<=160) score+=4;
         else if(pas<=172) score+=5;
         else score += 6;
-
-        Log.d("Debug_Score", "PAS: "+score);
         return score;
     }
 
@@ -186,7 +170,6 @@ public final class FraminghamRiskScore implements Serializable {
         else if(col<=288) score+=4;
         else if(col<=315) score+=5;
         else score += 6;
-        Log.d("Debug_Score", "ColTotal: "+col+"; Score: "+score);
 
         return score;
     }
@@ -208,8 +191,6 @@ public final class FraminghamRiskScore implements Serializable {
         else if(col<=80) score-=5;
         else if(col<=87) score-=6;
         else score -=7 ;
-
-        Log.d("Debug_Score", "ColHLD: "+col+"; Score: "+score);
         return score;
     }
 

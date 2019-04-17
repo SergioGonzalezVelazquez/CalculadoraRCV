@@ -162,6 +162,17 @@
 \usepackage{wallpaper}
 \usepackage{color}
 \usepackage{wrapfig}
+\usepackage{float}
+
+%---CÓDIGO
+
+\lstdefinestyle{Java-color}{%
+	basicstyle=\scriptsize,
+	language=Java,
+  	keywordstyle=\color{blue},
+  	commentstyle=\color{DarkGreen},
+  	stringstyle=\color{DarkOrchid}
+}
 
 
 %
@@ -192,13 +203,7 @@
 	    \vspace{125mm}
 	\end{titlepage}
 	
-	%--- Resumen en español
-	\chapter*{Resumen}
-	% PENDIENTE: Resumen	
 
-	\textbf{TERMINAR}
-
-	\addcontentsline{toc}{chapter}{Resumen}
 	
 	
 	% -------------------------
@@ -237,7 +242,19 @@
 	\include{./DescripcionProyecto}
 	\include{./Analisis}
 	\include{./Diseno}
+	\include{./Implementacion}
 
+
+	% -------------------------
+	%
+	% ANEXOS
+	%
+	% -------------------------
+	\appendix
+	
+	% Tras este punto los capítulos se numeran con letras.
+	% Aquí todos los apéndices necesarios
+	\include{./AnexoA} % Apéndice A (opcionales)
 	
 
 	% OJO: Añadir para que hiperenlaces de índice salgan bien.

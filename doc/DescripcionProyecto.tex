@@ -1,8 +1,75 @@
-\chapter {Descripción del proyecto}
-\label{cap:descripción del proyecto}
+\chapter {Introducción}
+\label{cap:Introduccion}
 
-Medicina y Tecnología han caminado juntas desde el principio de los tiempos: desde el instrumental quirúrgico y su evolución a lo largo de los siglos, pasando por el fonendoscopio, las prótesis, el electrocardiograma, las radiografías o la resonancia magnética. Son muchos los avances tecnológicos que han facilitado la labor de los médicos a la hora de emitir diagnósticos y aplicar tratamientos.
-\textbf{\textcolor{red}{\huge PENDIENTE}}
+Si algo valoran especialmente en su trabajo cotidiano los médicos de familia es la aproximación a la incertidumbre. Cuando se encuentran a su alcance las pruebas diagnósticas en cada caso y disponen de guías de tratamiento actualizadas, basadas en evidencias y adaptadas a su quehacer cotidiano, experimentan cómo disminuye la incertidumbre propia de su trabajo. 
+Esta situación queda destacada con especial relevancia cuando se trata de atender a los pacientes que sufren las enfermedades cardiovasculares. En España, las enfermedades del aparato circulatorio constituyeron la principal causa de muerte para el conjunto de la población, representando el 36\% de todas las defunciones. 
 
-\section{Factores de Riesgo Cardiovascular}
-Los factores de riesgo cardiovasculares son condicionantes ligados a estilos de vida que incrementan la probabilidad de padecer o morir por enfermedad vascular en aquellas personas en las que inciden.
+\section{Propuesta de Proyecto}
+Según diversos estudios presentados en el Congreso de eSalud, la Inteligencia Artificial puede
+ayudar al diagnóstico y tratamiento de enfermedades cardiovasculares, la primera causa de
+morbimortalidad y gasto sanitario.
+
+En este sentido, nos gustaría realizar un prototipo de una aplicación para detectar el riesgo de
+enfermedad cardiovascular en función del peso, edad, alimentación, frecuencia con que se
+práctica deporte y otros factores a estudiar. El programa deberá analizar la información
+introducida por el paciente y, comparando con su base de datos, establecer las probabilidades de
+que sufra una enfermedad cardiovascular. Es decir, el objetivo de este trabajo es hacer medicina
+predictiva identificando signos que preceden a algunas enfermedades cardíacas concretas.
+
+La idea ha sido tomada del desafío social propuesto por Mary Luz Mouronte López para la edición
+2019 del programa HackForGood.
+\begin{center}
+\url{https://hackforgood.net/reto-ufv-1-riesgo-de-enfermedad-cardiovascular/}
+\end{center}
+
+
+\section{Descripción y justificación del trabajo}
+En el trabajo teórico de la asignatura Gestión de Sistemas de Información, hemos investigado sobre la Inteligencia Artificial y su aplicación en Medicina. Hablábamos de los Sistemas Expertos como uno de los primeros resultados de la Inteligencia Artificial, porque logran resolver problemas a través del conocimiento, de forma similar a como lo hace un ser humano. Decíamos también, que una de las aplicaciones más importantes de los sistemas expertos tiene lugar en Medicina, donde pueden utilizarse principalmente para diagnóstico médico.
+
+Por otro lado, concluíamos nuestro trabajo haciendo una pequeña reflexión sobre el futuro que nos espera gracias a los avances de la Inteligencia Artificial. En este sentido, proponíamos un cambio de chip que nos conduzca a marcarnos otros objetivos más ambiciosos: hacer \textbf{medicina preventiva} intentando evitar la aparición del mayor número de enfermedades, basándonos en actuaciones y consejos médicos que se pueden anticipar gracias a los avances de la tecnología.
+
+La combinación de Sistemas Expertos con la idea de medicina preventiva constituye la raíz del origen de nuestro proyecto de laboratorio. De manera más concreta, hemos intentado desarrollar una aproximación de Sistema Experto en forma de aplicación Android que se pueda utilizar para prevenir y reducir el número de enfermedades cardiovasculares. Decimos que se trata de una aproximación de Sistema Experto, porque hemos desarrollado un algoritmo (\textbf{motor de inferencia}) que permita relacionar información concreta sobre el estilo de vida de un usuario (\textbf{base de hechos}), con una serie de conocimiento general sobre los factores que influyen en el riesgo de sufrir una enfermedad cardiovascular (\textbf{base de conocimiento}).
+
+Tal y como explicábamos en el trabajo teórico, la base de conocimiento de un SE está formada por todo el conocimiento disponible sobre el campo en el que se desarrolla la aplicación. En nuestro caso particular, este conocimiento lo encontramos en el \textbf{modelo para el cálculo de la probabilidad de riesgo cardiovascular de Framingham}. 
+
+\section{Herramientas utilizadas}
+
+\subsubsection{Entorno de Desarrollo}
+Hemos decidido implementar nuestra aplicación en Android haciendo uso del entorno de desarrollo \textbf{Android Studio} y del lenguaje de programación\textbf{ Java}. La principal motivación de esta decisión es que nos gustaría aprender a programar en esta plataforma, pues creemos que es bastante versátil, compatible con una inmensidad de dispositivos y que nos ofrece la posibilidad de desarrollar aplicaciones que estén disponibles para millones de usuarios en todo el mundo. Por tanto, consideramos que es muy recomendable aprender a programar en Android y nos puede resultar de utilidad en el futuro.
+
+Además, otra de las razones que nos conducen a decantarnos por Android es que, al tratarse de una plataforma de código abierto, podemos encontrar una gran cantidad de publicaciones que nos ayudarán a desarrollar nuestro trabajo.
+
+
+\subsubsection{Repositorio de código}
+Hemos utilizado un repositorio de código privado en Github que nos ha permitido de tener un control de las versiones de nuestra práctica, además de ofrecer la posibilidad de trabajar de forma paralela todos los miembros del grupo de trabajo.
+
+\begin{center}
+\url{https://github.com/SergioGonzalezVelazquez/ProyectoGSI}
+\end{center}
+
+\subsubsection{Base de Datos}
+Para añadir persistencia a los datos de nuestra aplicación Android, hemos utilizado un motor ligero de bases de datos de código abierto como es \textbf{SQLite}, una tecnología muy cómoda para los dispositivos móviles. Su simplicidad, rapidez y usabilidad permiten un desarrollo muy amigable. El conector que hemos utilizado para que nos proporcione los mecanismos básicos para la relación entre la aplicación Android y la información, es \textbf{SQLiteOpenHelper}.
+
+\subsubsection{Librerías de terceros}
+\begin{itemize}
+\item \textbf{HelloCharts}. Librería para implementar gráficos estadísticos compatible con API 8+(Android 2.2).
+
+\begin{center}
+\url{https://github.com/lecho/hellocharts-android}
+\end{center}
+
+\item \textbf{JustifiedTextView}. Librería que permite justificar texto en una aplicación Android.
+\begin{center}
+\url{https://github.com/amilcar-sr/JustifiedTextView}
+\end{center}
+
+
+\item \textbf{CircleImageView}. Librería que permite introducir imágenes con forma circular. 
+
+\begin{center}
+\url{https://github.com/hdodenhof/CircleImageView}
+\end{center}
+ 
+
+
+\end{itemize}

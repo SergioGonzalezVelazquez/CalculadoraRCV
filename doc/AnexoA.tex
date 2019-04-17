@@ -1,0 +1,7 @@
+\chapter{Tablas de Framingham en Java}
+\label{cap:AnexoA}
+
+Consideramos interesante incluir en la documentación de nuestra aplicación la implementación del algoritmo de Framimgham en Java. Para su desarrollo nos hemos basado en las tablas de estimación de riesgo cardiovascular explicadas en el capítulo \ref{cap:Fase I. Análisis}. Entrando un poco en detalle en la estructura de la clase \textbf{FramighamRiskScore}, cabe destacar la existencia de los métodos públicos \emph{\textbf{getRiskScore}} y \emph{\textbf{scoreToRisk}}. El primero de ellos es el encargado de estimar la valoración de Framimgham a partir de los factores de riesgo que recibe como parámetros de entrada. Por su parte, la segunda función mencionada es la encargada de proporcionar el porcentaje de riesgo cardiovascular en función de la valoración de Framimgham.
+
+
+\lstinputlisting[style=Java-color,caption={Implementación del algoritmo de Framigham en Java},label=lst:codCfile]{./code/FraminghamRiskScore.java}
