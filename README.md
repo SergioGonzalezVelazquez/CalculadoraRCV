@@ -1,11 +1,25 @@
-# ProyectoGSI
-Según diversos estudios presentados en el Congreso de eSalud, la Inteligencia Artificial puede ayudar
-al diagnóstico y tratamiento de enfermedades cardiovasculares, la primera causa de morbimortalidad
-y gasto sanitario.
+# Calculadora Riesgo Cardiovascular
 
-En este sentido, nos gustaría realizar un prototipo de una aplicación para detectar el riesgo de
-enfermedad cardiovascular en función del peso, edad, alimentación, frecuencia con que se práctica
-deporte y otros factores a estudiar. El programa deberá analizar la información introducida por el
-paciente y, comparando con su base de datos, establecer las probabilidades de que sufra una enfermedad
-cardiovascular. Es decir, el objetivo de este trabajo es hacer medicina preventiva identificando
-signos que preceden a algunas enfermedades cardíacas concretas.
+>Prototipo de una aplicación para detectar el riesgo de enfermedad cardiovascular basándonos en el ALGORITMO DE FRAMINGHAM. El programa analiza la información introducida por el paciente y, comparando con su base de datos, establece las probabilidades de sufrir una enfermedad cardiovascular en un intervalo de 5-10 años. El objetivo de este trabajo es hacer medicina predictiva identificando signos que preceden a algunas enfermedades cardíacas concretas.
+
+
+## Herramientas utilizadas
+
+- Entorno de desarrollo Android Studio.
+- Persistencia mediante una BBDD local con SQLite
+- HelloCharts. Librería para implementar gráficos estadísticos compatible con API 8+(Android 2.2)
+- JustifiedTextView. Librería que permite jusitificar texto en TextView y EditText.
+- CircleImageView. Librería que permite introducir imágenes con forma circular.
+
+## Prototipado
+
+
+## Diagrama de clases de dominio
+
+
+## Funcionalidades implementadas
+<p align="center">
+  <img src="/capturas/login.jpg" width="200" > <img src="/capturas/registro.jpg" width="200" >
+</p>
+
+
