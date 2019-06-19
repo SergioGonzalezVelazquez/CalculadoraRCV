@@ -11,15 +11,18 @@
 - JustifiedTextView. Librería que permite jusitificar texto en TextView y EditText.
 - CircleImageView. Librería que permite introducir imágenes con forma circular.
 
-## Prototipado
-
-
-## Diagrama de clases de dominio
-
+---
 
 ## Funcionalidades implementadas
+
+### Inicio de sesión y registro de nuevos usuarios
 <p align="center">
   <img src="/capturas/login.jpg" width="200" > <img src="/capturas/registro.jpg" width="200" >
 </p>
 
+### Barra de navegación inferior
+#### Ventana de Estado
+#### Ventana de nuevo Cálculo
+#### Ventana de Perfil
 
+### Action Bar y Acerca De...
