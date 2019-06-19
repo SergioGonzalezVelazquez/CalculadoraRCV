@@ -17,12 +17,26 @@
 
 ### Inicio de sesión y registro de nuevos usuarios
 <p align="center">
-  <img src="/capturas/login.jpg" width="200" > <img src="/capturas/registro.jpg" width="200" >
+  <img src="/capturas/login.jpg" width="200" > <img src="/capturas/registro.jpg" width="200"> <img src="/capturas/calendar.png" width="200">
 </p>
 
 ### Barra de navegación inferior
 #### Ventana de Estado
+<p align="center">
+  <img src="/capturas/estado.jpg" width="200" > <img src="/capturas/Recomendacion1.jpg" width="200"> <img src="/capturas/Recomendacion1.jpg" width="200">
+</p>
+
 #### Ventana de nuevo Cálculo
+<p align="center">
+  <img src="/capturas/nuevoCalculo.jpg" width="200" > <img src="/capturas/nuevoCalculo2.jpg" width="200"> 
+</p>
+
 #### Ventana de Perfil
+<p align="center">
+  <img src="/capturas/user2.png" width="200" > <img src="/capturas/user3.png" width="200"> 
+</p>
 
 ### Action Bar y Acerca De...
+<p align="center">
+  <img src="/capturas/Acercade.jpg" width="200" > <img src="/capturas/Acercade2.jpg" width="200"> 
+</p>
