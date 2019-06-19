@@ -6,6 +6,7 @@
 ## Herramientas utilizadas
 
 - Entorno de desarrollo Android Studio.
+- Lenguaje de programación Java
 - Persistencia mediante una BBDD local con SQLite
 - HelloCharts. Librería para implementar gráficos estadísticos compatible con API 8+(Android 2.2)
 - JustifiedTextView. Librería que permite jusitificar texto en TextView y EditText.
@@ -23,7 +24,7 @@
 ### Barra de navegación inferior
 #### Ventana de Estado
 <p align="center">
-  <img src="/capturas/estado.jpg" width="200" > <img src="/capturas/Recomendacion1.jpg" width="200"> <img src="/capturas/Recomendacion1.jpg" width="200">
+  <img src="/capturas/estado.jpg" width="200" > <img src="/capturas/Recomendacion1.jpg" width="200"> <img src="/capturas/Recomendacion2.jpg" width="200">
 </p>
 
 #### Ventana de nuevo Cálculo
